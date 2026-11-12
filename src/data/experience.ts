@@ -10,7 +10,7 @@ export const experience: Experience[] = [
     kind: "work",
     bullets: [
       "Support US customers of a buy-now-pay-later fintech in English, handling account and payment cases.",
-      "Resolve cases using a Salesforce knowledge base while following compliance guidelines.",
+      "Resolve cases using a Salesforce knowledge base and follow compliance guidelines.",
     ],
   },
   {
@@ -20,9 +20,8 @@ export const experience: Experience[] = [
     current: false,
     kind: "work",
     bullets: [
-      "Supported corporate and retail customers in English by phone and chat.",
-      "Troubleshot account and order issues and escalated incidents to the right teams.",
-      "Worked against performance targets in a high-volume environment.",
+      "Supported corporate and retail customers in English by phone and chat, troubleshooting accounts and orders.",
+      "Escalated incidents and met performance targets in a high-volume environment.",
     ],
   },
   {
