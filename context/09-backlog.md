@@ -20,7 +20,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [x] **F2-01 (P1) 🤖 Hero** con TerminalWidget en modo estático (renderizado en servidor).
 - [x] **F2-02 (P1) 🤖 Selected work** (ProjectCard con media/placeholder) + Other projects.
 - [x] **F2-03 (P1) 🤖 About + skills agrupados.**
-- [ ] **F2-04 (P1) 🤖 Experience timeline + Certifications** (los chips de estado leen de los datos).
+- [x] **F2-04 (P1) 🤖 Experience timeline + Certifications** (los chips de estado leen de los datos).
 - [ ] **F2-05 (P1) 🤖 Contact/footer** (copiar correo + mailto).
 - [ ] **F2-06 (P2) 🤖 Animaciones con Motion** (fade-up, reduced-motion).
 - [ ] **F2-07 (P1) 🧑 Media demo.** Capturas y clips con datos ficticios → `public/media/` (checklist en `02`).

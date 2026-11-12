@@ -16,6 +16,15 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-12 · F2-04 · Experience timeline and Certifications
+- Done: `ExperienceSection` (`<ol>` timeline with a 1px line, entries and bullets from `getExperience()`, accent dot and a hidden "Current role." label only on the current work entry) and `CertificationsSection` with `CertCard`s from `getCertifications()` (name, issuer, text status chip, optional factual note). Order on the home: Hero, Selected work, About, Experience, Certifications. New `src/lib/cert-status.ts` with 11 unit tests (every status covered, AA contrast for all chip variants). Checked visually at 1440px and 375px.
+- Housekeeping: pushed 670ef8f (F2-03); CI for 4c868a4 was green (51s).
+- Proof: temporarily marking GitHub Foundations as `certified` made 2 unit tests and 2 e2e tests fail; reverted.
+- Content review: bullets match `context/01`. One small embellishment to review: "escalated incidents to the right teams" (the source only says incident escalation). Not edited.
+- Decisions: D-32 (current role = current work entry; the data has two `current: true`), D-33 (certification status map and chips).
+- Checks: lint ✅ typecheck ✅ test ✅ (44) build ✅ e2e ✅ (53).
+- Pending/blockers: none for this ticket.
+
 ### 2026-11-12 · F2-03 · About and grouped skills
 - Done: `AboutSection` after Selected work (Hero → Selected work → About): paragraphs from `getProfile().about` on the left, "Skills" with the 7 groups from `getSkillGroups()` as chips on the right; stacked on mobile. The nav "About" link (desktop and mobile menu) lands on `#about`. Checked visually at 1440px and 375px.
 - Housekeeping: committed the 5 renormalized files as `chore: normalize line endings` (4c868a4; `git diff --ignore-cr-at-eol` showed zero content changes) and pushed 1ed65f1, d71ea23 and 4c868a4.

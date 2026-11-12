@@ -57,8 +57,9 @@ Package manager: npm (Node ≥ 22). The remote is `github.com/sebashooo/sebastia
 ```
 src/app/        layout.tsx (fonts, metadata) · page.tsx (placeholder home) · globals.css (@theme tokens)
 src/components/ Container · Button · SectionHeader · Logo · SkipLink · Nav (+ NavShell, MobileMenu: the only client components) · Footer
-                Hero · TerminalWidget · WorkSection · ProjectCard · ProjectMedia · OtherProjects · StackChips · AboutSection
+                Hero · TerminalWidget · WorkSection · ProjectCard · ProjectMedia · OtherProjects · StackChips · AboutSection · ExperienceSection · CertificationsSection · CertCard
 src/data/       Typed content + getters (index.ts); import only from "@/data" (ESLint-enforced) · data.test.ts validates it
+src/lib/        cert-status.ts (certification status → label and chip variant)
 src/lib/terminal/ static-output.ts (pure builder for the terminal's stack output; reused by the interactive terminal)
 src/lib/        site.ts (site constants, email, socials) · nav.ts (nav links) · *.test.ts (Vitest, next to the code)
 tests/e2e/      Playwright specs
