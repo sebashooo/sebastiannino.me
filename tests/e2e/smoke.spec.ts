@@ -70,7 +70,9 @@ test("uses the three design fonts", async ({ page }) => {
   expect(fonts.mono).toMatch(/JetBrains Mono/i);
 });
 
-test("desktop nav shows links and a mailto CTA, and no menu button", async ({ page }) => {
+test("desktop nav shows links and a Get in touch CTA to #contact, and no menu button", async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1440, height: 800 });
   await page.goto("/");
   const nav = page.getByRole("navigation", { name: "Primary" });
@@ -79,7 +81,7 @@ test("desktop nav shows links and a mailto CTA, and no menu button", async ({ pa
   }
   await expect(nav.getByRole("link", { name: "Get in touch" })).toHaveAttribute(
     "href",
-    "mailto:hello@sebastiannino.me",
+    "/#contact",
   );
   await expect(page.getByRole("button", { name: /menu/i })).toBeHidden();
 });

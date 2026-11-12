@@ -7,7 +7,8 @@ const terminal = (page: Page) => page.getByRole("figure", { name: /sebastian --s
 test("hero shows the availability label, headline and tagline from the data", async ({ page }) => {
   const profile = getProfile();
   await page.goto("/");
-  await expect(page.getByText(profile.availability)).toBeVisible();
+  const hero = page.locator('section[aria-labelledby="hero-heading"]');
+  await expect(hero.getByText(profile.availability)).toBeVisible();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(profile.headline);
   await expect(page.getByText(profile.tagline)).toBeVisible();
 });

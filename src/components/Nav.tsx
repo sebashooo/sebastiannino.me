@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { NAV_LINKS } from "@/lib/nav";
-import { mailtoHref } from "@/lib/site";
+import { CONTACT_HREF, NAV_LINKS } from "@/lib/nav";
 import { Button } from "./Button";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
@@ -27,12 +26,12 @@ export function Nav() {
               {link.label}
             </Link>
           ))}
-          <Button variant="pill" href={mailtoHref()}>
+          <Button variant="pill" href={CONTACT_HREF}>
             Get in touch
           </Button>
         </nav>
 
-        <MobileMenu links={NAV_LINKS} ctaLabel="Get in touch" ctaHref={mailtoHref()} />
+        <MobileMenu links={NAV_LINKS} ctaLabel="Get in touch" ctaHref={CONTACT_HREF} />
       </Container>
     </NavShell>
   );

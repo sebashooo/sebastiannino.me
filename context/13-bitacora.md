@@ -16,6 +16,13 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-12 · F2-05 · Contact section and copy-email button (+ bullet correction)
+- Done: Part A (72eff7e): experience bullets aligned with `context/01`. `ContactSection` with the mailto link, `CopyEmailButton` (clipboard with fallback and live region), profile links and a contact line built from the data; footer slimmed to a copyright line; nav "Get in touch" now lands on `#contact`. Pushed 762716d (F2-04); its CI was still running when last checked.
+- Client JS (home): baseline 581.5 kB raw / 180.1 kB gzip (8 scripts); after 582.6 kB raw / 180.6 kB gzip, so the copy button added about +1.1 kB raw / +0.5 kB gzip. Still minimal (D-11).
+- Decisions: D-34 (bullets), D-35 (Contact replaces footer content), D-36 (clipboard fallback, nav CTA to #contact).
+- Checks: lint ✅ typecheck ✅ test ✅ (47) build ✅ e2e ✅ (70 run; the last full run had 1 failing older hero test, fixed by scoping its lookup to the hero; re-run pending). Screenshots at 375px and 1440px not yet checked.
+- Pending/blockers: re-run e2e and take the screenshots; usage limit interrupted the session.
+
 ### 2026-11-12 · F2-04 · Experience timeline and Certifications
 - Done: `ExperienceSection` (`<ol>` timeline with a 1px line, entries and bullets from `getExperience()`, accent dot and a hidden "Current role." label only on the current work entry) and `CertificationsSection` with `CertCard`s from `getCertifications()` (name, issuer, text status chip, optional factual note). Order on the home: Hero, Selected work, About, Experience, Certifications. New `src/lib/cert-status.ts` with 11 unit tests (every status covered, AA contrast for all chip variants). Checked visually at 1440px and 375px.
 - Housekeeping: pushed 670ef8f (F2-03); CI for 4c868a4 was green (51s).
