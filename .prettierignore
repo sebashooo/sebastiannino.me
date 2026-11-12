@@ -1,0 +1,12 @@
+# Planning material and generated output are not formatted by Prettier
+context/
+design/
+docs/
+prompts/
+README-EMPIEZA-AQUI.md
+.next/
+node_modules/
+coverage/
+playwright-report/
+test-results/
+package-lock.json

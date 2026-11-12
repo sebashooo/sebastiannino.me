@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sebastiannino.me — Design C reference (Minimal dark + terminal)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#09090b}
+a{color:#67e8f9}a:hover{color:#a5f3fc}
+</style>
+
+</head>
+<body>
+<!-- REFERENCE MOCKUP ONLY. Static design reference for the portfolio. Rebuild it as Next.js components; do not copy this file into the app. Placeholders in [brackets] are replaced with real screenshots. -->
+
+<div style="min-height: 100vh; background: #09090b; color: #d4d4d8; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.6">
+<div style="max-width: 1160px; margin: 0 auto; padding: 28px 24px 80px; display: flex; flex-direction: column; gap: 72px">
+
+<nav style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px">
+<a href="#" style="text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: #fafafa">sn<span style="color: #67e8f9">.</span>me</a>
+<div style="display: flex; flex-wrap: wrap; gap: 28px; font-size: 14px; align-items: center">
+<a href="#work" style="text-decoration: none; color: #a1a1aa">Work</a>
+<a href="#about" style="text-decoration: none; color: #a1a1aa">About</a>
+<a href="#" style="text-decoration: none; color: #a1a1aa">Blog</a>
+<a href="#" style="text-decoration: none; color: #09090b; background: #fafafa; padding: 8px 16px; border-radius: 999px; font-weight: 500">Get in touch</a>
+</div>
+</nav>
+
+<section style="display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 20px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #67e8f9">● Available for remote junior roles</p>
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 60px; line-height: 1.05; color: #fafafa; font-weight: 700; letter-spacing: -1.5px">Backend-minded<br>full-stack developer.</h1>
+<p style="margin: 0; font-size: 18px; color: #a1a1aa; max-width: 520px">I'm Sebastián — I design data models, secure multi-tenant APIs and ship them with tests and CI/CD. Next.js, NestJS, PostgreSQL, AWS.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#work" style="text-decoration: none; background: #67e8f9; color: #09090b; padding: 12px 22px; border-radius: 8px; font-weight: 500">See my work</a>
+<a href="#" style="text-decoration: none; border: 1px solid #3f3f46; color: #fafafa; padding: 12px 22px; border-radius: 8px">Download résumé</a>
+</div>
+</div>
+<div style="flex: 1 1 380px; border: 1px solid #27272a; border-radius: 12px; background: #111113; font-family: 'JetBrains Mono', monospace; font-size: 13px; overflow: hidden">
+<div style="padding: 10px 14px; border-bottom: 1px solid #27272a; color: #71717a; display: flex; justify-content: space-between"><span>terminal</span><span>zsh</span></div>
+<div style="padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<p style="margin: 0"><span style="color: #67e8f9">❯</span> sebastian --stack</p>
+<p style="margin: 0; color: #a1a1aa">frontend  next.js · react · tailwind</p>
+<p style="margin: 0; color: #a1a1aa">backend   nestjs · node · rest</p>
+<p style="margin: 0; color: #a1a1aa">data      postgresql · prisma · sql</p>
+<p style="margin: 0; color: #a1a1aa">cloud     vercel · neon · aws</p>
+<p style="margin: 6px 0 0"><span style="color: #67e8f9">❯</span> sebastian --help</p>
+<p style="margin: 0; color: #71717a">try: projects · resume · contact</p>
+</div>
+</div>
+</section>
+
+<section id="work" style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 32px; color: #fafafa">Selected work</h2>
+<p style="margin: 0; color: #71717a; font-size: 14px">Case studies with architecture diagrams</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px">
+<article style="border: 1px solid #27272a; border-radius: 12px; background: #111113; overflow: hidden; display: flex; flex-direction: column">
+<div style="height: 200px; background: #18181b; display: flex; align-items: center; justify-content: center; color: #52525b; font-size: 14px; border-bottom: 1px solid #27272a">[Managerapp demo screenshot]</div>
+<div style="padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #fafafa">Managerapp</h3>
+<p style="margin: 0; color: #a1a1aa">Multi-tenant SaaS for small businesses, used by 2 real companies. Found and fixed a silent RLS bypass.</p>
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #71717a">Next.js · Prisma · Postgres RLS · Vitest · Vercel</p>
+</div>
+</article>
+<article style="border: 1px solid #27272a; border-radius: 12px; background: #111113; overflow: hidden; display: flex; flex-direction: column">
+<div style="height: 200px; background: #18181b; display: flex; align-items: center; justify-content: center; color: #52525b; font-size: 14px; border-bottom: 1px solid #27272a">[Tu Conjunto demo screenshot]</div>
+<div style="padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #fafafa">Tu Conjunto a la Mano</h3>
+<p style="margin: 0; color: #a1a1aa">Residential-complex platform. Led backend and data model; 489 E2E tests including tenant isolation.</p>
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #71717a">NestJS · Postgres · Jest · Swagger · Gemini</p>
+</div>
+</article>
+</div>
+</section>
+
+<section id="about" style="border-top: 1px solid #27272a; padding-top: 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; color: #71717a; font-size: 14px">
+<p style="margin: 0">hello@sebastiannino.me · Bogotá, Colombia · English C1</p>
+<div style="display: flex; gap: 20px"><a href="#">GitHub</a><a href="#">LinkedIn</a></div>
+</section>
+
+</div>
+</div>
+
+</body>
+</html>

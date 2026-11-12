@@ -1,0 +1,32 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# environment: never commit secrets (.env.example is the only tracked env file)
+.env*
+!.env.example
+
+# tests
+/coverage
+/playwright-report/
+/test-results/
+
+# typescript / editors / OS
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+*.pem
+
+# logs
+npm-debug.log*
+pnpm-debug.log*
+
+# vercel
+.vercel

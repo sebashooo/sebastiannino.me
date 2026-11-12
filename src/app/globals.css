@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — "Minimal dark + terminal" (context/03-diseno.md).
+ * `@theme` turns each variable into Tailwind utilities, e.g. --color-accent -> bg-accent / text-accent,
+ * --radius-card -> rounded-card, --container-site -> max-w-site.
+ */
+@theme {
+  --color-bg: #09090b;
+  --color-surface: #111113;
+  --color-surface-2: #18181b;
+  --color-border: #27272a;
+  --color-border-strong: #3f3f46;
+  --color-text: #fafafa;
+  --color-text-body: #d4d4d8;
+  --color-text-muted: #a1a1aa;
+  --color-text-subtle: #71717a;
+  --color-accent: #67e8f9;
+  --color-accent-hover: #a5f3fc;
+  --color-success: #4ade80;
+
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-pill: 999px;
+
+  --container-site: 1160px;
+}
+
+/*
+ * Font families. next/font (layout.tsx) defines the --font-* variables below at runtime;
+ * `inline` makes the utilities (font-display, font-sans, font-mono) reference them directly
+ * instead of resolving them at :root, where they don't exist.
+ */
+@theme inline {
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+html {
+  color-scheme: dark;
+  background-color: var(--color-bg);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-body);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Text selection: accent at 30% */
+::selection {
+  background-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  color: var(--color-text);
+}
+
+/* Visible focus for every interactive element: 2px accent outline, 2px offset */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
