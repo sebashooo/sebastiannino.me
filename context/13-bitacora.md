@@ -16,6 +16,14 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-12 · F2-03 · About and grouped skills
+- Done: `AboutSection` after Selected work (Hero → Selected work → About): paragraphs from `getProfile().about` on the left, "Skills" with the 7 groups from `getSkillGroups()` as chips on the right; stacked on mobile. The nav "About" link (desktop and mobile menu) lands on `#about`. Checked visually at 1440px and 375px.
+- Housekeeping: committed the 5 renormalized files as `chore: normalize line endings` (4c868a4; `git diff --ignore-cr-at-eol` showed zero content changes) and pushed 1ed65f1, d71ea23 and 4c868a4.
+- Content review: every skill matches `context/01` (Java and C++ are marked academic, AWS is "fundamentals"); nothing overstated. The About text is short next to the skills column, so the left side has empty space on desktop; left as is (content is not edited here).
+- Decisions: D-31 (About structure).
+- Checks: lint ✅ typecheck ✅ test ✅ (33) build ✅ e2e ✅ (40).
+- Pending/blockers: none for this ticket.
+
 ### 2026-11-12 · F2-02 · Selected work and Other projects
 - Done: `WorkSection` replaces the temporary block (keeps `id="work"`): two featured `ProjectCard`s from `getFeaturedProjects()` and a compact `OtherProjects` list from `getOtherProjects()`, with `ProjectMedia` (image / video / labeled placeholder) and `StackChips`. Every card shows name, role · period, one-liner, stack chips, the private note and a "Read case study" link; no repo links on featured cards, and a repo link in Other projects only for the public portfolio repo. Checked visually at 1440px and 375px.
 - Housekeeping: pushed 066c07f and b65e618 (CI for b65e618: green, 1m). Added `.gitattributes` (1ed65f1).

@@ -19,7 +19,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 ## Fase 2 · Home (Día 3)
 - [x] **F2-01 (P1) 🤖 Hero** con TerminalWidget en modo estático (renderizado en servidor).
 - [x] **F2-02 (P1) 🤖 Selected work** (ProjectCard con media/placeholder) + Other projects.
-- [ ] **F2-03 (P1) 🤖 About + skills agrupados.**
+- [x] **F2-03 (P1) 🤖 About + skills agrupados.**
 - [ ] **F2-04 (P1) 🤖 Experience timeline + Certifications** (los chips de estado leen de los datos).
 - [ ] **F2-05 (P1) 🤖 Contact/footer** (copiar correo + mailto).
 - [ ] **F2-06 (P2) 🤖 Animaciones con Motion** (fade-up, reduced-motion).
