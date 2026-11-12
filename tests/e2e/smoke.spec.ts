@@ -3,6 +3,7 @@ import { expect, test } from "@playwright/test";
 test("home loads and shows the headline", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/Sebastián Niño/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
   await expect(
     page.getByRole("heading", { level: 1, name: "Backend-minded full-stack developer." }),
   ).toBeVisible();
@@ -100,7 +101,7 @@ test.describe("mobile menu (375px)", () => {
     const button = page.getByRole("button", { name: "Open menu" });
     await expect(button).toBeVisible();
     await expect(button).toHaveAttribute("aria-expanded", "false");
-    await expect(page.getByRole("link", { name: "Work" })).toBeHidden();
+    await expect(page.getByRole("link", { name: "Work", exact: true })).toBeHidden();
 
     // skip link → logo → menu button
     await page.keyboard.press("Tab");
@@ -111,12 +112,12 @@ test.describe("mobile menu (375px)", () => {
     await page.keyboard.press("Enter");
     const close = page.getByRole("button", { name: "Close menu" });
     await expect(close).toHaveAttribute("aria-expanded", "true");
-    await expect(page.getByRole("link", { name: "Work" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Work", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Get in touch" })).toBeVisible();
 
     // the opened panel is reachable with Tab
     await page.keyboard.press("Tab");
-    await expect(page.getByRole("link", { name: "Work" })).toBeFocused();
+    await expect(page.getByRole("link", { name: "Work", exact: true })).toBeFocused();
 
     await page.keyboard.press("Escape");
     await expect(page.getByRole("button", { name: "Open menu" })).toBeFocused();
@@ -124,7 +125,7 @@ test.describe("mobile menu (375px)", () => {
       "aria-expanded",
       "false",
     );
-    await expect(page.getByRole("link", { name: "Work" })).toBeHidden();
+    await expect(page.getByRole("link", { name: "Work", exact: true })).toBeHidden();
   });
 
   test("no horizontal scroll with the menu open", async ({ page }) => {

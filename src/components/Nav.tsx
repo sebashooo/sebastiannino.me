@@ -22,7 +22,7 @@ export function Nav() {
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-button text-sm text-text-muted transition-colors hover:text-text motion-reduce:transition-none"
+              className="rounded-button text-sm text-text-muted transition-[color,background-color,border-color] hover:text-text motion-reduce:transition-none"
             >
               {link.label}
             </Link>

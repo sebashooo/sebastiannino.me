@@ -16,6 +16,12 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-12 · F2-01 · Hero with static terminal
+- Done: `Hero` (availability label, the only H1, tagline, CTAs "See my work" and "Download résumé") and a static `TerminalWidget` showing `sebastian --stack`, both Server Components reading `@/data`. The output builder is a pure function in `src/lib/terminal/static-output.ts` with 7 Vitest tests. Home has a temporary `#work` section ("Coming soon") so the CTA scrolls somewhere valid; F2-02 replaces it. The old "Portfolio launching" line was removed from the home. Layout: two columns on desktop, terminal below the CTAs on mobile. Checked visually at 1440px and 375px.
+- Decisions: D-26 (static builder and widget), D-27 (file links as plain anchors; no outline-color transition).
+- Checks: lint ✅ typecheck ✅ test ✅ (30) build ✅ e2e ✅ (20). CI on aa3b468 (F1-02): ✅ green (59s). Housekeeping commit 066c07f and this ticket are local, not pushed.
+- Pending/blockers: `/resume.pdf` does not exist yet (F4-07), so "Download résumé" is a dead link until then. The tagline and About tone are waiting for Sebastián's review now that they render.
+
 ### 2026-11-12 · Housekeeping · MongoDB in progress, docs in English
 - Done: MongoDB Associate Developer is `in-progress` everywhere (`src/data` already had it; `context/01` now says so). `CLAUDE.md` now says `context/09`, `10` and `13` are written in English. Added a language note at the top of `context/10` and `13`. Old Spanish entries untouched.
 - Decisions: D-24 (MongoDB in progress, amends D-23), D-25 (docs in English).

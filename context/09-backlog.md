@@ -17,7 +17,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [x] **F1-02 (P1) 🤖 Capa de datos.** `src/data/*` con los tipos de `11-modelo-de-contenido.md` y el contenido real de `01`. *AC: tipos estrictos, sin `any`; test de que los datos cumplen el schema.*
 
 ## Fase 2 · Home (Día 3)
-- [ ] **F2-01 (P1) 🤖 Hero** con TerminalWidget en modo estático (renderizado en servidor).
+- [x] **F2-01 (P1) 🤖 Hero** con TerminalWidget en modo estático (renderizado en servidor).
 - [ ] **F2-02 (P1) 🤖 Selected work** (ProjectCard con media/placeholder) + Other projects.
 - [ ] **F2-03 (P1) 🤖 About + skills agrupados.**
 - [ ] **F2-04 (P1) 🤖 Experience timeline + Certifications** (los chips de estado leen de los datos).

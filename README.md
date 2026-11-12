@@ -39,6 +39,7 @@ The quality gate is `npm run lint && npm run typecheck && npm test && npm run bu
 src/app/          Routes, layout, global styles and design tokens (globals.css)
 src/components/   Shared layout components (nav, footer, button, ...)
 src/data/         Typed content (profile, projects, experience, certifications, skills) and its getters
+src/lib/terminal/  Pure terminal logic (stack output builder)
 src/lib/          Pure helpers and site constants, with unit tests next to them
 tests/e2e/        Playwright specs
 .github/workflows CI

@@ -18,7 +18,7 @@ type ButtonAsButton = CommonProps &
 export type ButtonProps = ButtonAsLink | ButtonAsButton;
 
 const BASE =
-  "inline-flex min-h-11 items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium whitespace-nowrap transition-colors motion-reduce:transition-none";
+  "inline-flex min-h-11 items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium whitespace-nowrap transition-[color,background-color,border-color] motion-reduce:transition-none";
 
 const VARIANTS: Record<Variant, string> = {
   primary: "rounded-button bg-accent text-bg hover:bg-accent-hover",
@@ -27,8 +27,12 @@ const VARIANTS: Record<Variant, string> = {
   pill: "rounded-pill bg-text text-bg hover:bg-text-body",
 };
 
-/** Links that leave the app (or open another program) must be plain <a>, not next/link. */
-const EXTERNAL = /^(mailto:|tel:|https?:)/;
+/**
+ * Links that are not app routes must be a plain <a>, not next/link: external URLs, mailto/tel,
+ * and files in /public (anything ending in an extension, like /resume.pdf), which Next would
+ * otherwise try to prefetch as a page.
+ */
+const EXTERNAL = /^(mailto:|tel:|https?:)|\.[a-z0-9]+$/i;
 
 function buttonClasses(variant: Variant, className: string) {
   return `${BASE} ${VARIANTS[variant]} ${className}`;
