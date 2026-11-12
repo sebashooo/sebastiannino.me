@@ -16,6 +16,13 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-12 · F2-02 · Selected work and Other projects
+- Done: `WorkSection` replaces the temporary block (keeps `id="work"`): two featured `ProjectCard`s from `getFeaturedProjects()` and a compact `OtherProjects` list from `getOtherProjects()`, with `ProjectMedia` (image / video / labeled placeholder) and `StackChips`. Every card shows name, role · period, one-liner, stack chips, the private note and a "Read case study" link; no repo links on featured cards, and a repo link in Other projects only for the public portfolio repo. Checked visually at 1440px and 375px.
+- Housekeeping: pushed 066c07f and b65e618 (CI for b65e618: green, 1m). Added `.gitattributes` (1ed65f1).
+- Decisions: D-28 (stretched card link, ring around the card), D-29 (placeholder rule), D-30 (`.gitattributes`, renormalize left uncommitted).
+- Checks: lint ✅ typecheck ✅ test ✅ (33) build ✅ e2e ✅ (32).
+- Pending/blockers: `/work/managerapp` and `/work/tu-conjunto` do not exist until F3-01, so the case-study links lead to 404 for now (no stub pages were created). Demo media is still missing (F2-07). Added to F5-01: no "coming soon" placeholders on the home at launch.
+
 ### 2026-11-12 · F2-01 · Hero with static terminal
 - Done: `Hero` (availability label, the only H1, tagline, CTAs "See my work" and "Download résumé") and a static `TerminalWidget` showing `sebastian --stack`, both Server Components reading `@/data`. The output builder is a pure function in `src/lib/terminal/static-output.ts` with 7 Vitest tests. Home has a temporary `#work` section ("Coming soon") so the CTA scrolls somewhere valid; F2-02 replaces it. The old "Portfolio launching" line was removed from the home. Layout: two columns on desktop, terminal below the CTAs on mobile. Checked visually at 1440px and 375px.
 - Decisions: D-26 (static builder and widget), D-27 (file links as plain anchors; no outline-color transition).

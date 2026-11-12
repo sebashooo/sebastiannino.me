@@ -1,16 +1,8 @@
-import { expect, test, type Locator, type Page } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { getProfile, getSkillGroups } from "../../src/data";
+import { tabTo } from "./helpers";
 
 const terminal = (page: Page) => page.getByRole("figure", { name: /sebastian --stack/ });
-
-/** Tab until the locator has focus (so we test real keyboard focus, not programmatic focus). */
-async function tabTo(page: Page, target: Locator) {
-  for (let i = 0; i < 20; i++) {
-    await page.keyboard.press("Tab");
-    if (await target.evaluate((el) => el === document.activeElement)) return;
-  }
-  throw new Error("Element never received keyboard focus");
-}
 
 test("hero shows the availability label, headline and tagline from the data", async ({ page }) => {
   const profile = getProfile();

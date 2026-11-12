@@ -18,7 +18,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 
 ## Fase 2 · Home (Día 3)
 - [x] **F2-01 (P1) 🤖 Hero** con TerminalWidget en modo estático (renderizado en servidor).
-- [ ] **F2-02 (P1) 🤖 Selected work** (ProjectCard con media/placeholder) + Other projects.
+- [x] **F2-02 (P1) 🤖 Selected work** (ProjectCard con media/placeholder) + Other projects.
 - [ ] **F2-03 (P1) 🤖 About + skills agrupados.**
 - [ ] **F2-04 (P1) 🤖 Experience timeline + Certifications** (los chips de estado leen de los datos).
 - [ ] **F2-05 (P1) 🤖 Contact/footer** (copiar correo + mailto).
@@ -42,7 +42,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [ ] **F4-07 (P1) 🧑 CV público** en inglés, compatible con ATS (H2), sin teléfono → `public/resume.pdf`.
 
 ## Fase 5 · QA y lanzamiento (Día 7)
-- [ ] **F5-01 (P1) 🤖 QA completo** según `12-estrategia-pruebas.md` (incluye la auditoría de privacidad).
+- [ ] **F5-01 (P1) 🤖 QA completo** según `12-estrategia-pruebas.md` (incluye la auditoría de privacidad). Also: no "coming soon" placeholders left on the home at launch.
 - [ ] **F5-02 (P1) 🤖 README del repo** (captura, stack, decisiones, scripts).
 - [ ] **F5-03 (P1) 🧑 Verificación en producción:** HTTPS, redirección de `www`, correo, móvil real.
 - [ ] **F5-04 (P1) 🧑 LinkedIn: básicos + post de lanzamiento** (`06`).

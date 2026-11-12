@@ -78,3 +78,11 @@ body {
 main:focus {
   outline: none;
 }
+
+/*
+ * Stretched card links (ProjectCard): the focus ring is drawn around the whole card,
+ * so the link itself shows none. Outranks the generic :focus-visible rule above.
+ */
+[data-stretched-link]:focus-visible {
+  outline: none;
+}
