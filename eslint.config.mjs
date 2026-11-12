@@ -5,6 +5,25 @@ import nextTs from "eslint-config-next/typescript";
 export default defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    // Content layer rule: everything outside src/data reads content through the getters in
+    // "@/data" (src/data/index.ts), never from the raw arrays in the individual files.
+    files: ["src/**/*.{ts,tsx}"],
+    ignores: ["src/data/**"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@/data/*"],
+              message: 'Import content getters from "@/data", not from the individual data files.',
+            },
+          ],
+        },
+      ],
+    },
+  },
   globalIgnores([
     // Build output and tool reports
     ".next/**",

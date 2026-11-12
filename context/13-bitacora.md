@@ -14,6 +14,12 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-12 · F1-02 · Capa de datos tipada
+- Hecho: `src/data` con `types.ts`, `profile.ts`, `skills.ts`, `projects.ts` (Managerapp y Tu Conjunto destacados, sin links a repos; Parking y este portafolio en "Other projects"), `experience.ts`, `certifications.ts` e `index.ts` con getters (`getFeaturedProjects`, `getOtherProjects`, `getCertifications`…). Correo, ubicación y redes se definen una vez en `src/lib/site.ts`. Una regla de ESLint impide importar los archivos crudos desde fuera de `src/data`. 16 tests nuevos validan el contenido (slugs únicos, `featured` con `caseStudy`, certificaciones sin `certified` sin credencial, solo repos permitidos, único correo permitido, sin teléfonos). Se comprobó que fallan al romper las reglas y que vuelven a pasar al revertir.
+- Decisiones: D-21 (ajustes a los tipos), D-22 (getters + ESLint + sin zod), D-23 (estados de certificaciones; ver nota sobre MongoDB).
+- Checks: lint ✅ typecheck ✅ test ✅ (23) build ✅ e2e ✅ (11). Sin push (a petición de Sebastián).
+- Pendiente/bloqueos: confirmar si la ruta de MongoDB ya empezó (si no, cambiar a `planned`, D-23). El último run de CI en `main` pasó en verde; hay un run fallido de Dependabot (`minimatch`) por revisar.
+
 ### 2026-11-12 · F1-01 · Componentes base y shell de layout
 - Hecho: `src/components` con Container, Button (primary/secondary/pill, enlace o botón, alto mínimo 44 px), SectionHeader, Logo, SkipLink, Nav (blur y borde al hacer scroll) con MobileMenu (aria-expanded, Escape, teclado) y Footer placeholder (sin formulario). El layout ahora envuelve cada página en skip link → header → `<main id="main">` → footer. `src/lib/nav.ts` y `site.ts` concentran links, correo y redes. Plugin de Prettier para Tailwind instalado y repo formateado.
 - Decisiones: D-18 (prettier-plugin-tailwindcss), D-19 (anchors `/#id`, correo único, variante `pill`, solo 2 Client Components), D-20 (menú móvil sin focus trap).

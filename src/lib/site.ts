@@ -11,12 +11,18 @@ export const SITE = {
 } as const;
 
 /**
- * Public profiles (context/01). The LinkedIn URL will change to /in/sebastiannino
+ * Public profile URLs (context/01). The LinkedIn URL will change to /in/sebastiannino
  * once the custom URL is set (see context/06); update it here only.
  */
+export const SOCIAL_URLS = {
+  github: "https://github.com/sebashooo",
+  linkedin: "https://www.linkedin.com/in/sebastian-felipe-ni%C3%B1o-vargas",
+} as const;
+
+/** Same URLs as a list, for rendering links (footer). */
 export const SOCIALS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/sebastian-felipe-ni%C3%B1o-vargas" },
-  { label: "GitHub", href: "https://github.com/sebashooo" },
+  { label: "LinkedIn", href: SOCIAL_URLS.linkedin },
+  { label: "GitHub", href: SOCIAL_URLS.github },
 ] as const;
 
 /** `mailto:` link for the site's email address. */

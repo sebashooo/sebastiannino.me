@@ -38,17 +38,18 @@ The quality gate is `npm run lint && npm run typecheck && npm test && npm run bu
 ```
 src/app/          Routes, layout, global styles and design tokens (globals.css)
 src/components/   Shared layout components (nav, footer, button, ...)
+src/data/         Typed content (profile, projects, experience, certifications, skills) and its getters
 src/lib/          Pure helpers and site constants, with unit tests next to them
 tests/e2e/        Playwright specs
 .github/workflows CI
 context/ design/ docs/ prompts/   Planning material (not part of the app)
 ```
 
-`src/data` and `src/content` are added as the site grows.
+`src/content` (MDX case studies) is added as the site grows.
 
 ## Content lives in data
 
-Content (projects, experience, certifications, case studies) will live in typed data files (`src/data/*.ts`) and MDX (`src/content/work/*.mdx`). Components only render it, and the terminal widget reads from the same source, so updating the site means editing data, not UI.
+Content (projects, experience, certifications) lives in typed data files (`src/data/*.ts`, read through the getters in `@/data`) and case studies will live in MDX (`src/content/work/*.mdx`). Components only render it, and the terminal widget reads from the same source, so updating the site means editing data, not UI.
 
 ## CI
 

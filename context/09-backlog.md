@@ -14,7 +14,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 
 ## Fase 1 · Diseño y layout (Día 2)
 - [x] **F1-01 (P1) 🤖 Componentes base.** Container, Button, SectionHeader, Nav (blur en scroll, menú móvil), Footer, skip link. *AC: AA, foco visible, 375–1440 px.*
-- [ ] **F1-02 (P1) 🤖 Capa de datos.** `src/data/*` con los tipos de `11-modelo-de-contenido.md` y el contenido real de `01`. *AC: tipos estrictos, sin `any`; test de que los datos cumplen el schema.*
+- [x] **F1-02 (P1) 🤖 Capa de datos.** `src/data/*` con los tipos de `11-modelo-de-contenido.md` y el contenido real de `01`. *AC: tipos estrictos, sin `any`; test de que los datos cumplen el schema.*
 
 ## Fase 2 · Home (Día 3)
 - [ ] **F2-01 (P1) 🤖 Hero** con TerminalWidget en modo estático (renderizado en servidor).
