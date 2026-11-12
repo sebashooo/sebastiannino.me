@@ -17,7 +17,7 @@ export function TerminalWidget() {
       {/* Window bar: decoration only, the figure's label already names the widget */}
       <div
         aria-hidden="true"
-        className="flex justify-between border-b border-border px-3.5 py-2.5 text-text-subtle"
+        className="flex justify-between border-b border-border px-3.5 py-2.5 text-text-muted"
       >
         <span>terminal</span>
         <span>zsh</span>

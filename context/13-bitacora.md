@@ -16,6 +16,15 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-12 · F2-06 · Scroll fade-ups with Motion + Lighthouse measurement
+- Done: `Reveal` (client wrapper using `motion/mini`) around the five below-the-fold sections; Hero untouched. SSR HTML stays fully visible; hidden start state only on the client for blocks below the viewport; none under reduced motion. Added the `motion` package (14.13.0). Pushed 72eff7e, 6d474fd and 5b59e55 first (CI for 5b59e55 was running when last checked).
+- Client JS (home): 582.6 → 591.5 kB raw, 180.6 → 183.7 kB gzip (+3.1 kB gzip, target was about +8).
+- Lighthouse (mobile, simulated throttling, production build served locally, Lighthouse 13.6.0, 3 runs): Performance 87 / 80 / 83, Accessibility 96 → 100 after the contrast fix (D-38), Best Practices 96, SEO 100. LCP 0.8 s, CLS 0, TBT 530–840 ms (the weak spot; the Performance target is 95). Findings: (1) `/favicon.ico` 404 logged as a console error (Best Practices); (2) TBT is dominated by the React/Next framework chunk (about 70 kB gzip, roughly 500 ms scripting under 4x CPU throttling, 30 KiB reported unused and 14 KiB legacy JS inside it); (3) render-blocking CSS (about 160 ms). Placeholders and the missing /resume.pdf do not affect these numbers. Local numbers are indicative; re-measure on the Vercel preview.
+- Suggested tickets (not created): favicon and icons (bring F4-03's favicon forward, fixes the console error); investigate TBT/Performance on the Vercel preview (framework chunk, inline critical CSS, check whether `Reveal` or the client nav components matter); re-run Lighthouse after F2-07 media lands.
+- Decisions: D-37 (Motion setup and the no-JS visibility rule), D-38 (terminal bar contrast).
+- Checks: lint ✅ typecheck ✅ test ✅ (47) build ✅ e2e ✅ (82). Screenshots at 375px and 1440px checked after scrolling the whole page (0 blocks left hidden).
+- Pending/blockers: Performance below 95 until the TBT investigation; favicon missing.
+
 ### 2026-11-12 · F2-05 · Contact section and copy-email button (+ bullet correction)
 - Done: Part A (72eff7e): experience bullets aligned with `context/01`. `ContactSection` with the mailto link, `CopyEmailButton` (clipboard with fallback and live region), profile links and a contact line built from the data; footer slimmed to a copyright line; nav "Get in touch" now lands on `#contact`. Pushed 762716d (F2-04); its CI finished green.
 - Client JS (home): baseline 581.5 kB raw / 180.1 kB gzip (8 scripts); after 582.6 kB raw / 180.6 kB gzip, so the copy button added about +1.1 kB raw / +0.5 kB gzip. Still minimal (D-11).

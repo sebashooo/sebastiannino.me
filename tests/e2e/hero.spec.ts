@@ -101,3 +101,12 @@ test("both CTAs show a 2px accent focus outline from the keyboard", async ({ pag
     expect(outline).toEqual({ width: "2px", offset: "2px", color: "rgb(103, 232, 249)" });
   }
 });
+
+test("terminal window bar text uses the muted color (AA contrast), not the subtle one", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const bar = terminal(page).locator('div[aria-hidden="true"]');
+  // #a1a1aa on #111113 is 7.9:1; the subtle #71717a would be 3.9:1 and fail AA at 13px
+  expect(await bar.evaluate((el) => getComputedStyle(el).color)).toBe("rgb(161, 161, 170)");
+});
