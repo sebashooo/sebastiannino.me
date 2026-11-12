@@ -1,5 +1,7 @@
 # 13 · Bitácora de desarrollo
 
+> Entries before 2026-11-12 are in Spanish; newer ones are in English.
+
 Historial corto de lo que pasó en cada sesión. **Claude Code agrega una entrada al terminar cada ticket** (las más recientes arriba).
 Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al final de cada fase**, para que Claude Chat tenga el estado actualizado.
 
@@ -13,6 +15,12 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 ```
 
 ---
+
+### 2026-11-12 · Housekeeping · MongoDB in progress, docs in English
+- Done: MongoDB Associate Developer is `in-progress` everywhere (`src/data` already had it; `context/01` now says so). `CLAUDE.md` now says `context/09`, `10` and `13` are written in English. Added a language note at the top of `context/10` and `13`. Old Spanish entries untouched.
+- Decisions: D-24 (MongoDB in progress, amends D-23), D-25 (docs in English).
+- Checks: lint ✅ typecheck ✅ test ✅ build ✅ (see the report for counts)
+- Pending/blockers: none. Not pushed.
 
 ### 2026-11-12 · F1-02 · Capa de datos tipada
 - Hecho: `src/data` con `types.ts`, `profile.ts`, `skills.ts`, `projects.ts` (Managerapp y Tu Conjunto destacados, sin links a repos; Parking y este portafolio en "Other projects"), `experience.ts`, `certifications.ts` e `index.ts` con getters (`getFeaturedProjects`, `getOtherProjects`, `getCertifications`…). Correo, ubicación y redes se definen una vez en `src/lib/site.ts`. Una regla de ESLint impide importar los archivos crudos desde fuera de `src/data`. 16 tests nuevos validan el contenido (slugs únicos, `featured` con `caseStudy`, certificaciones sin `certified` sin credencial, solo repos permitidos, único correo permitido, sin teléfonos). Se comprobó que fallan al romper las reglas y que vuelven a pasar al revertir.

@@ -20,7 +20,7 @@ Personal portfolio of Sebastián Niño, a backend-minded full-stack developer. G
 1. Mark finished tickets `[x]` in `context/09-backlog.md`.
 2. Add any new decision as a D-xx row in `context/10-decisiones-y-pendientes.md` (never delete old ones; mark them "Superseded by D-yy").
 3. Add an entry at the top of `context/13-bitacora.md` using its format.
-   Write these in Spanish (they are Sebastián's docs); code, commits and site content stay in English.
+   Write context/09, 10 and 13 in English; code, commits and site content also stay in English.
 
 ## Stack
 

@@ -70,7 +70,7 @@ Python · C++ · estructuras de datos · POO. Tarifas configurables (por hora, p
 |---|---|---|
 | AWS Certified Cloud Practitioner (CLF-C02) | Curso terminado, falta el examen | "In progress — exam scheduled" (no poner "Certified" hasta aprobar) |
 | GitHub Foundations (curso en DataCamp) | Curso terminado | "GitHub Foundations — course (DataCamp)". Si presenta el examen: "GitHub Foundations Certified" |
-| MongoDB Associate Developer (Node.js) | Planeado (voucher del Student Pack) | "In progress" cuando empiece la ruta |
+| MongoDB Associate Developer (Node.js) | En curso (empezó la ruta de aprendizaje; voucher del Student Pack) | "In progress" (no poner "Certified" hasta aprobar) |
 | Técnico en ciberseguridad SENA | En curso | En Educación |
 
 ## Qué NO decir
