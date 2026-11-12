@@ -16,6 +16,12 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-12 · Housekeeping · Close Phase 2
+- Done: `context/01` records that Sebastián confirmed on 2026-11-12 his Managerapp role is "Founder & Full-Stack Developer" (his own product, in use in his business); `src/data/projects.ts` already uses exactly that role, so no code changed. `context/09`: added F4-08 (performance pass, Lighthouse mobile >= 95 on the Vercel preview), a favicon note on F4-03 and a carried-over note on F2-07. Pushed 8f9a285 and this commit.
+- Decisions: none.
+- Checks: lint ✅ typecheck ✅ test ✅ (47) build ✅ (docs-only change; last full e2e run: 82 ✅).
+- Where to resume: Phase 2 code is done (F2-01 to F2-06). Still open: F2-07 (Sebastián: demo screenshots and clips with fictional data into `public/media/`), F0-03 to F0-06 (Sebastián: Vercel import, domain, email forwarding, Claude project link). Next code ticket: F3-01 (MDX infrastructure and `/work/[slug]` pages; the case-study links on the home return 404 until then). Also pending: favicon (F4-03), performance pass (F4-08), `/resume.pdf` (F4-07), Dependabot `minimatch` PR failing, tagline/About tone review. Local state: `main` is in sync with `origin/main` after the push; node_modules installed with npm; run `npm install` if missing, then `npm run dev`.
+
 ### 2026-11-12 · F2-06 · Scroll fade-ups with Motion + Lighthouse measurement
 - Done: `Reveal` (client wrapper using `motion/mini`) around the five below-the-fold sections; Hero untouched. SSR HTML stays fully visible; hidden start state only on the client for blocks below the viewport; none under reduced motion. Added the `motion` package (14.13.0). Pushed 72eff7e, 6d474fd and 5b59e55 first (CI for 5b59e55 was running when last checked).
 - Client JS (home): 582.6 → 591.5 kB raw, 180.6 → 183.7 kB gzip (+3.1 kB gzip, target was about +8).

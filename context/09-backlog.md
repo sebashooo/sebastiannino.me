@@ -23,7 +23,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [x] **F2-04 (P1) 🤖 Experience timeline + Certifications** (los chips de estado leen de los datos).
 - [x] **F2-05 (P1) 🤖 Contact/footer** (copiar correo + mailto).
 - [x] **F2-06 (P2) 🤖 Animaciones con Motion** (fade-up, reduced-motion).
-- [ ] **F2-07 (P1) 🧑 Media demo.** Capturas y clips con datos ficticios → `public/media/` (checklist en `02`).
+- [ ] **F2-07 (P1) 🧑 Media demo.** Capturas y clips con datos ficticios → `public/media/` (checklist en `02`). *Note: carried over from Phase 2; needed by F3-05 (galleries) and F5-01 (privacy audit).*
 
 ## Fase 3 · Casos de estudio (Días 4–5)
 - [ ] **F3-01 (P1) 🤖 Infraestructura MDX** + layout del caso (TOC, metadata, anterior/siguiente) + `generateStaticParams`.
@@ -35,11 +35,12 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 ## Fase 4 · Interactividad, SEO, calidad (Día 6)
 - [ ] **F4-01 (P1) 🤖 Parser de comandos** puro en `lib/terminal` con tests en Vitest (todos los comandos + desconocido + vacío).
 - [ ] **F4-02 (P1) 🤖 TerminalWidget interactivo** (historial ↑/↓, Tab, `aria-live`, reduced-motion).
-- [ ] **F4-03 (P1) 🤖 SEO:** metadata, OG dinámica, JSON-LD Person, sitemap, robots, favicon.
+- [ ] **F4-03 (P1) 🤖 SEO:** metadata, OG dinámica, JSON-LD Person, sitemap, robots, favicon. *Note: bring the favicon forward: /favicon.ico returns 404 and costs Best Practices.*
 - [ ] **F4-04 (P2) 🤖 404 tipo terminal.**
 - [ ] **F4-05 (P2) 🤖 Vercel Analytics.**
 - [ ] **F4-06 (P1) 🤖 E2E:** home, `help` en la terminal, navegación a los casos, descarga del CV.
 - [ ] **F4-07 (P1) 🧑 CV público** en inglés, compatible con ATS (H2), sin teléfono → `public/resume.pdf`.
+- [ ] **F4-08 (P1) 🤖 Performance pass:** Lighthouse mobile >= 95 on the Vercel preview. Investigate TBT (framework chunk, render-blocking CSS, `Reveal` and nav client code) and re-measure after F2-07 media lands.
 
 ## Fase 5 · QA y lanzamiento (Día 7)
 - [ ] **F5-01 (P1) 🤖 QA completo** según `12-estrategia-pruebas.md` (incluye la auditoría de privacidad). Also: no "coming soon" placeholders left on the home at launch.

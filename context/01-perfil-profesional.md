@@ -42,6 +42,7 @@ Next.js 16 · TypeScript · React · Tailwind · PostgreSQL (Neon) · Prisma · 
 - Flujo mobile-first de códigos de barras: generación EAN-13 y escaneo con cámara, con fallback para Safari/iOS.
 - CI/CD: tests (Vitest) en GitHub Actions; cada push a master despliega automáticamente en Vercel.
 - **Visibilidad:** repo privado; se usa en el negocio de Sebastián. En el portafolio, **solo demo con datos ficticios**. Tiene demo grabada.
+- **Rol (confirmado por Sebastián el 2026-11-12):** "Founder & Full-Stack Developer" (producto propio, en uso en su negocio).
 
 ### Tu Conjunto a la Mano — Plataforma modular para conjuntos residenciales (2026 · proyecto en equipo)
 Rol: **desarrollador de backend y base de datos** · NestJS · TypeScript · PostgreSQL · Prisma · React · Claude Code
