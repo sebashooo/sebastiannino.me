@@ -13,7 +13,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [ ] **F0-05 (P1) 🧑 Correo.** Reenvío hello@ → Gmail. *AC: llega un correo de prueba.*
 
 ## Fase 1 · Diseño y layout (Día 2)
-- [ ] **F1-01 (P1) 🤖 Componentes base.** Container, Button, SectionHeader, Nav (blur en scroll, menú móvil), Footer, skip link. *AC: AA, foco visible, 375–1440 px.*
+- [x] **F1-01 (P1) 🤖 Componentes base.** Container, Button, SectionHeader, Nav (blur en scroll, menú móvil), Footer, skip link. *AC: AA, foco visible, 375–1440 px.*
 - [ ] **F1-02 (P1) 🤖 Capa de datos.** `src/data/*` con los tipos de `11-modelo-de-contenido.md` y el contenido real de `01`. *AC: tipos estrictos, sin `any`; test de que los datos cumplen el schema.*
 
 ## Fase 2 · Home (Día 3)

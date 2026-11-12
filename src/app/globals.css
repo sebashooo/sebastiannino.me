@@ -40,6 +40,15 @@
 html {
   color-scheme: dark;
   background-color: var(--color-bg);
+  /* Anchor targets stop below the sticky header */
+  scroll-padding-top: 5rem;
+}
+
+/* Smooth anchor scrolling only for people who haven't asked for reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -60,4 +69,12 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
+}
+
+/*
+ * <main> is focusable only so the skip link can move focus into it (tabindex="-1").
+ * It isn't interactive, so it shows no ring (this unlayered rule beats the rule above and Tailwind utilities).
+ */
+main:focus {
+  outline: none;
 }

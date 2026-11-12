@@ -37,13 +37,14 @@ The quality gate is `npm run lint && npm run typecheck && npm test && npm run bu
 
 ```
 src/app/          Routes, layout, global styles and design tokens (globals.css)
+src/components/   Shared layout components (nav, footer, button, ...)
 src/lib/          Pure helpers and site constants, with unit tests next to them
 tests/e2e/        Playwright specs
 .github/workflows CI
 context/ design/ docs/ prompts/   Planning material (not part of the app)
 ```
 
-`src/components`, `src/data` and `src/content` are added as the site grows.
+`src/data` and `src/content` are added as the site grows.
 
 ## Content lives in data
 
