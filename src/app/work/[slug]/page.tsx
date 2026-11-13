@@ -10,13 +10,17 @@ import { caseStudyModules, CASE_STUDY_DIR } from "@/content/work";
 import { getAdjacentCaseStudies, getCaseStudies, getCaseStudy, getProjectBySlug } from "@/data";
 import { extractToc } from "@/lib/toc";
 
+// Explicit type (not the generated PageProps helper): `npm run typecheck` must work on a clean
+// checkout, before any build has generated .next/types.
+type Props = { params: Promise<{ slug: string }> };
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getCaseStudies().map(({ slug }) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const caseStudy = getCaseStudy(slug);
   const project = getProjectBySlug(slug);
@@ -39,7 +43,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
   };
 }
 
-export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]">) {
+export default async function CaseStudyPage({ params }: Props) {
   const { slug } = await params;
   const caseStudy = getCaseStudy(slug);
   const project = getProjectBySlug(slug);
