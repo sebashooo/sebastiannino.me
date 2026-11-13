@@ -48,15 +48,31 @@ describe("unverified claims stay out of the content", () => {
     expect(getCaseStudy("tu-conjunto")!.summary).toContain("hundreds of end-to-end tests");
   });
 
-  it("never describes Tu Conjunto isolation as RLS or a tenant layer (D-46)", () => {
+  describe("Tu Conjunto isolation is application-level, never RLS or a tenant layer (D-46)", () => {
     const rls = /\bRLS\b|row[- ]level security|tenant layer/i;
-    const tuConjuntoFiles = files.filter((f) => /tu-conjunto/.test(f));
-    expect(tuConjuntoFiles.length).toBeGreaterThanOrEqual(2); // the MDX and its diagram
-    for (const f of tuConjuntoFiles) {
-      expect(readFileSync(f, "utf8"), f).not.toMatch(rls);
-    }
-    const project = getProjectBySlug("tu-conjunto")!;
-    expect(JSON.stringify(project)).not.toMatch(rls);
-    expect(getCaseStudy("tu-conjunto")!.summary).not.toMatch(rls);
+    // Scoped by file and by slug, never by a shared file as a whole: Managerapp legitimately
+    // discusses RLS, and projects.ts / case-studies.ts hold both projects.
+    const tuConjuntoFiles = files.filter((f) => /[\\/]tu-conjunto(\.mdx|\.ts)$/.test(f));
+
+    it("covers the case-study MDX and its diagram, and only Tu Conjunto's own files", () => {
+      expect(tuConjuntoFiles.some((f) => f.endsWith("tu-conjunto.mdx"))).toBe(true);
+      expect(tuConjuntoFiles.some((f) => /diagrams[\\/]tu-conjunto\.ts$/.test(f))).toBe(true);
+      expect(tuConjuntoFiles.some((f) => /managerapp|projects\.ts|case-studies\.ts/.test(f))).toBe(
+        false,
+      );
+    });
+
+    it("finds no RLS or tenant-layer wording in those files or in the Tu Conjunto data", () => {
+      for (const f of tuConjuntoFiles) {
+        expect(readFileSync(f, "utf8"), f).not.toMatch(rls);
+      }
+      expect(JSON.stringify(getProjectBySlug("tu-conjunto"))).not.toMatch(rls);
+      expect(getCaseStudy("tu-conjunto")!.summary).not.toMatch(rls);
+    });
+
+    it("does not touch Managerapp, whose RLS story is real (so the guard is not too broad)", () => {
+      expect(JSON.stringify(getProjectBySlug("managerapp"))).toMatch(rls);
+      expect("Tenant data is isolated with Row Level Security").toMatch(rls); // the pattern works
+    });
   });
 });
