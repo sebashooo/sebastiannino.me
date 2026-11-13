@@ -23,14 +23,14 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [x] **F2-04 (P1) 🤖 Experience timeline + Certifications** (los chips de estado leen de los datos).
 - [x] **F2-05 (P1) 🤖 Contact/footer** (copiar correo + mailto).
 - [x] **F2-06 (P2) 🤖 Animaciones con Motion** (fade-up, reduced-motion).
-- [ ] **F2-07 (P1) 🧑 Media demo.** Capturas y clips con datos ficticios → `public/media/` (checklist en `02`). *Note: carried over from Phase 2; needed by F3-05 (galleries) and F5-01 (privacy audit).*
+- [~] **F2-07 (P1) 🧑 Media demo.** *Partial 2026-11-12: the two card covers are done (D-44); clips, posters and galleries pending.* Capturas y clips con datos ficticios → `public/media/` (checklist en `02`). *Note: carried over from Phase 2; needed by F3-05 (galleries) and F5-01 (privacy audit).*
 
 ## Fase 3 · Casos de estudio (Días 4–5)
 - [x] **F3-01 (P1) 🤖 Infraestructura MDX** + layout del caso (TOC, metadata, anterior/siguiente) + `generateStaticParams`. *Done 2026-11-12 (D-39 to D-43). Placeholder MDX for both slugs, both `draft: true`.*
 - [ ] **F3-02 (P1) 🤖 ArchitectureDiagram** (SVG/JSX con los tokens).
 - [ ] **F3-03 (P1) 💬→🧑 Borrador del caso Managerapp** (Claude Chat redacta y Sebastián corrige los datos).
 - [ ] **F3-04 (P1) 💬→🧑 Borrador del caso Tu Conjunto.**
-- [ ] **F3-05 (P1) 🤖 Implementar los dos MDX** con diagramas y galerías.
+- [ ] **F3-05 (P1) 🤖 Implementar los dos MDX** con diagramas y galerías. *Captions required (D-44): "Screenshot · demo data" (managerapp) and "Architecture overview · illustration" (tu-conjunto).*
 
 ## Fase 4 · Interactividad, SEO, calidad (Día 6)
 - [ ] **F4-01 (P1) 🤖 Parser de comandos** puro en `lib/terminal` con tests en Vitest (todos los comandos + desconocido + vacío).
@@ -43,7 +43,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [ ] **F4-08 (P1) 🤖 Performance pass:** Lighthouse mobile >= 95 on the Vercel preview. Investigate TBT (framework chunk, render-blocking CSS, `Reveal` and nav client code) and re-measure after F2-07 media lands.
 
 ## Fase 5 · QA y lanzamiento (Día 7)
-- [ ] **F5-01 (P1) 🤖 QA completo** según `12-estrategia-pruebas.md` (incluye la auditoría de privacidad). Also: no "coming soon" placeholders left on the home at launch. Set `draft: false` on both case studies in `src/data/case-studies.ts` and verify they are indexable (no noindex robots meta, present in the sitemap once F4-03 exists).
+- [ ] **F5-01 (P1) 🤖 QA completo** según `12-estrategia-pruebas.md` (incluye la auditoría de privacidad). Also: no "coming soon" placeholders left on the home at launch. Verify the Tu Conjunto diagram claims and its alt text against the real backend (Q-07) before launch. Set `draft: false` on both case studies in `src/data/case-studies.ts` and verify they are indexable (no noindex robots meta, present in the sitemap once F4-03 exists).
 - [ ] **F5-02 (P1) 🤖 README del repo** (captura, stack, decisiones, scripts).
 - [ ] **F5-03 (P1) 🧑 Verificación en producción:** HTTPS, redirección de `www`, correo, móvil real.
 - [ ] **F5-04 (P1) 🧑 LinkedIn: básicos + post de lanzamiento** (`06`).

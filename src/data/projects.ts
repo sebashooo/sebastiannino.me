@@ -23,6 +23,11 @@ export const projects: Project[] = [
       "Vercel",
     ],
     featured: true,
+    media: {
+      type: "image",
+      src: "/media/managerapp/cover.webp",
+      alt: "Managerapp point-of-sale screen (Spanish interface, demo data): product search dropdown and a cart of three line items (four units) totalling $254,700 COP.",
+    },
     links: { caseStudy: "/work/managerapp" },
     privateNote: PRIVATE_NOTE,
     order: 1,
@@ -37,6 +42,12 @@ export const projects: Project[] = [
       "Residential-complex platform. Led backend & data model; 489 E2E tests including tenant isolation.",
     stack: ["NestJS", "TypeScript", "PostgreSQL", "Prisma", "React", "Jest", "Supertest"],
     featured: true,
+    // Pending claim verification (Q-07): the illustration makes claims about the real backend.
+    media: {
+      type: "image",
+      src: "/media/tu-conjunto/cover.webp",
+      alt: "Backend architecture of Tu Conjunto a la Mano: React clients for gate staff, administration and residents call a NestJS API with authentication, role guards and per-complex tenant scoping, backed by a shared PostgreSQL database and Prisma. Illustration.",
+    },
     links: { caseStudy: "/work/tu-conjunto" },
     privateNote: PRIVATE_NOTE,
     order: 2,

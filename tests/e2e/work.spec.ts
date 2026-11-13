@@ -176,3 +176,57 @@ for (const width of [375, 1440]) {
     }
   });
 }
+
+test.describe("project covers", () => {
+  for (const width of [375, 1440]) {
+    test(`featured cards with media show a loaded image with the data's alt at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto("/");
+      const cards = featuredCards(page);
+      for (const [i, project] of getFeaturedProjects().entries()) {
+        if (project.media?.type !== "image") continue;
+        const img = cards.nth(i).locator("img");
+        await img.scrollIntoViewIfNeeded();
+        await expect(img).toHaveAttribute("alt", project.media.alt);
+        await expect
+          .poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0))
+          .toBe(true);
+      }
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow).toBeLessThanOrEqual(0);
+    });
+  }
+
+  test("the media slot keeps its 16:10 size, so loading the image causes no layout shift", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.addInitScript(() => {
+      (window as unknown as { __cls: number }).__cls = 0;
+      new PerformanceObserver((list) => {
+        for (const e of list.getEntries() as unknown as {
+          value: number;
+          hadRecentInput: boolean;
+        }[]) {
+          if (!e.hadRecentInput) (window as unknown as { __cls: number }).__cls += e.value;
+        }
+      }).observe({ type: "layout-shift", buffered: true });
+    });
+    await page.goto("/");
+    const cards = featuredCards(page);
+    for (const [i, project] of getFeaturedProjects().entries()) {
+      if (!project.media) continue;
+      const slot = cards.nth(i).locator('[class~="aspect-[16/10]"]');
+      await slot.scrollIntoViewIfNeeded();
+      const box = await slot.boundingBox();
+      expect(Math.abs(box!.width / box!.height - 1.6)).toBeLessThan(0.02);
+    }
+    await page.waitForLoadState("load");
+    const cls = await page.evaluate(() => (window as unknown as { __cls: number }).__cls);
+    expect(cls).toBeLessThan(0.01);
+  });
+});
