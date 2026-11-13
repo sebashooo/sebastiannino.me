@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useState, useSyncExternalStore, type KeyboardEvent, type ReactNode } from "react";
+import { RESUME_FILENAME } from "@/lib/site";
 import type { LineTone, OutputLine } from "@/lib/terminal/commands";
 
 /**
@@ -55,7 +56,7 @@ function Line({ line }: { line: OutputLine }) {
       <a
         href={href}
         {...(href.startsWith("https:") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        {...(/\.pdf$/i.test(href) ? { download: true } : {})}
+        {...(/\.pdf$/i.test(href) ? { download: RESUME_FILENAME } : {})}
         className="underline underline-offset-4 hover:text-accent-hover"
       >
         {line.text}

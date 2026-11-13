@@ -15,6 +15,9 @@ export const SITE = {
   location: "Bogotá, Colombia",
 } as const;
 
+/** File name the browser saves the résumé as (the file itself is public/resume.pdf, F4-07). */
+export const RESUME_FILENAME = "Sebastian_Nino_CV.pdf";
+
 /**
  * Public profile URLs (context/01). The LinkedIn URL will change to /in/sebastiannino
  * once the custom URL is set (see context/06); update it here only.

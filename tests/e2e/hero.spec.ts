@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { getProfile, getSkillGroups } from "../../src/data";
+import { RESUME_FILENAME } from "../../src/lib/site";
 import { tabTo } from "./helpers";
 
 const terminal = (page: Page) => page.getByRole("figure", { name: /sebastian --stack/ });
@@ -16,10 +17,9 @@ test("hero shows the availability label, headline and tagline from the data", as
 test("hero has both CTAs pointing to the right places", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("link", { name: "See my work" })).toHaveAttribute("href", "#work");
-  await expect(page.getByRole("link", { name: "Download résumé" })).toHaveAttribute(
-    "href",
-    getProfile().resumeUrl,
-  );
+  const resume = page.getByRole("link", { name: "Download résumé" });
+  await expect(resume).toHaveAttribute("href", getProfile().resumeUrl);
+  await expect(resume).toHaveAttribute("download", RESUME_FILENAME);
 });
 
 test("'See my work' scrolls to the work section", async ({ page }) => {

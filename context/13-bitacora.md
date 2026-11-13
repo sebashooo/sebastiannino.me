@@ -16,6 +16,12 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-13 · F4-07 · Résumé PDF wired and committed
+- Done: `public/resume.pdf` (the owner's file, not edited) is the only résumé in `public/`, starts with `%PDF-`, 5,685 bytes, tracked (not ignored). Text extracted with Node's built-in zlib: no phone number, no "489", no "Certified" (AWS "in progress, exam pending", MongoDB "in progress", GitHub Foundations "course completed"; Tu Conjunto says "hundreds of automated E2E tests"). The Hero button and the terminal link both point to `/resume.pdf` and now download as `Sebastian_Nino_CV.pdf` (single constant `RESUME_FILENAME`; e2e checks it in both places).
+- Decisions: none.
+- Checks: lint ✅ typecheck ✅ (after deleting `.next`) test ✅ (152) build ✅ e2e ✅ (154 passed, 6 skipped: the flip-readiness tests; the PDF test runs).
+- Pending: F5-01 (b). No draft flag, cover or alt touched; nothing pushed.
+
 ### 2026-11-13 · F5-01 (a) · Pre-launch QA audit and flip preparation
 - Done: full gate and e2e re-run; `context/12` privacy audit (phones, emails other than hello@, internal URLs, credentials, "verified in production", the 489 figure, RLS claims on Tu Conjunto, "Certified" on in-progress items, EXIF on the two covers) found nothing to fix; the only "coming soon" is the missing-media fallback in `ProjectMedia`, which no home card uses today (both featured projects have media), so it stays. `minimatch` Dependabot alert fixed with a scoped npm override (`npm audit`: 0). Flip readiness: `sitemapEntries(studies?)` and `caseStudyRobots(draft)` made testable, flip dry-run unit test, conditional e2e `publish-readiness.spec.ts`, case-study robots e2e follows the flag, PDF test checks `%PDF-`. No draft flag, cover, alt or `resume.pdf` touched.
 - Decisions: D-56.

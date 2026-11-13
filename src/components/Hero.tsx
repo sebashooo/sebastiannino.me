@@ -1,4 +1,5 @@
 import { getProfile } from "@/data";
+import { RESUME_FILENAME } from "@/lib/site";
 import { Button } from "./Button";
 import { Container } from "./Container";
 import { TerminalWidget } from "./TerminalWidget";
@@ -29,7 +30,7 @@ export function Hero() {
           <p className="m-0 max-w-[520px] text-lg text-text-muted">{profile.tagline}</p>
           <div className="flex flex-wrap gap-3">
             <Button href="#work">See my work</Button>
-            <Button variant="secondary" href={profile.resumeUrl} download>
+            <Button variant="secondary" href={profile.resumeUrl} download={RESUME_FILENAME}>
               Download résumé
             </Button>
           </div>

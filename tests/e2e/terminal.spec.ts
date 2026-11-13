@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { getAllProjects, getProfile } from "../../src/data";
+import { RESUME_FILENAME } from "../../src/lib/site";
 
 const widget = (page: Page) => page.getByRole("figure", { name: /sebastian --stack/ });
 const input = (page: Page) => widget(page).getByRole("textbox", { name: /type a command/i });
@@ -54,7 +55,7 @@ test("resume shows the résumé link from the data", async ({ page }) => {
   await run(page, "resume");
   const link = log(page).getByRole("link", { name: "Download résumé (PDF)" });
   await expect(link).toHaveAttribute("href", getProfile().resumeUrl);
-  await expect(link).toHaveAttribute("download", "");
+  await expect(link).toHaveAttribute("download", RESUME_FILENAME);
 });
 
 test("contact shows the email, LinkedIn and GitHub from the data", async ({ page }) => {
