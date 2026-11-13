@@ -162,5 +162,9 @@ test.describe("résumé (F4-07 dependency)", () => {
     const response = await request.get(getProfile().resumeUrl);
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain("pdf");
+    // A real PDF, not an empty or placeholder file
+    const body = await response.body();
+    expect(body.subarray(0, 5).toString("latin1")).toBe("%PDF-");
+    expect(body.length).toBeGreaterThan(5_000);
   });
 });

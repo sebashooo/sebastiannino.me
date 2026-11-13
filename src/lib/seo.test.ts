@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getCaseStudies, getProfile } from "@/data";
-import { absoluteUrl, personJsonLd, serializeJsonLd, sitemapEntries } from "./seo";
+import { absoluteUrl, caseStudyRobots, personJsonLd, serializeJsonLd, sitemapEntries } from "./seo";
 import { SITE } from "./site";
 
 describe("personJsonLd", () => {
@@ -44,6 +44,12 @@ describe("sitemapEntries", () => {
     }
   });
 
+  it("flip dry-run: with every case study published, both URLs are in the sitemap (data untouched)", () => {
+    const published = getCaseStudies().map((c) => ({ ...c, draft: false }));
+    const paths = sitemapEntries(published).map((e) => e.path);
+    expect(paths).toEqual(["/", "/work/managerapp", "/work/tu-conjunto"]);
+  });
+
   it("gives published entries a lastModified date", () => {
     for (const e of sitemapEntries().filter((e) => e.path !== "/")) {
       expect(e.lastModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
@@ -59,5 +65,15 @@ describe("absoluteUrl", () => {
 
   it("uses https and no trailing path in the origin", () => {
     expect(SITE.url).toMatch(/^https:\/\/[^/]+$/);
+  });
+});
+
+describe("caseStudyRobots", () => {
+  it("marks a draft noindex but keeps following links", () => {
+    expect(caseStudyRobots(true)).toEqual({ robots: { index: false, follow: true } });
+  });
+
+  it("sets no robots metadata for a published case study, so it stays indexable", () => {
+    expect(caseStudyRobots(false)).toEqual({});
   });
 });

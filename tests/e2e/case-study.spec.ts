@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { getCaseStudy } from "../../src/data";
 
 const CASES = [
   { slug: "managerapp", name: "Managerapp" },
@@ -13,9 +14,13 @@ for (const { slug, name } of CASES) {
       await expect(page.getByRole("heading", { level: 1, name })).toBeVisible();
     });
 
-    test("is a draft: noindex robots meta and canonical URL", async ({ page }) => {
+    test("robots meta follows the draft flag, and the canonical URL is set", async ({ page }) => {
       await page.goto(`/work/${slug}`);
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+      if (getCaseStudy(slug)?.draft) {
+        await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+      } else {
+        await expect(page.locator('meta[name="robots"][content*="noindex"]')).toHaveCount(0);
+      }
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         "href",
         new RegExp(`/work/${slug}$`),

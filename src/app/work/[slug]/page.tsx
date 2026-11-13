@@ -8,6 +8,7 @@ import { Container } from "@/components/Container";
 import { Toc } from "@/components/Toc";
 import { caseStudyModules, CASE_STUDY_DIR } from "@/content/work";
 import { getAdjacentCaseStudies, getCaseStudies, getCaseStudy, getProjectBySlug } from "@/data";
+import { caseStudyRobots } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 import { extractToc } from "@/lib/toc";
 
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: caseStudy.publishedAt,
       ...(caseStudy.updatedAt ? { modifiedTime: caseStudy.updatedAt } : {}),
     },
-    ...(caseStudy.draft ? { robots: { index: false, follow: true } } : {}),
+    ...caseStudyRobots(caseStudy.draft),
   };
 }
 

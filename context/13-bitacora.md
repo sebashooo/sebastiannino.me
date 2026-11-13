@@ -16,6 +16,12 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-13 · F5-01 (a) · Pre-launch QA audit and flip preparation
+- Done: full gate and e2e re-run; `context/12` privacy audit (phones, emails other than hello@, internal URLs, credentials, "verified in production", the 489 figure, RLS claims on Tu Conjunto, "Certified" on in-progress items, EXIF on the two covers) found nothing to fix; the only "coming soon" is the missing-media fallback in `ProjectMedia`, which no home card uses today (both featured projects have media), so it stays. `minimatch` Dependabot alert fixed with a scoped npm override (`npm audit`: 0). Flip readiness: `sitemapEntries(studies?)` and `caseStudyRobots(draft)` made testable, flip dry-run unit test, conditional e2e `publish-readiness.spec.ts`, case-study robots e2e follows the flag, PDF test checks `%PDF-`. No draft flag, cover, alt or `resume.pdf` touched.
+- Decisions: D-56.
+- Checks: lint ✅ typecheck ✅ (after deleting `.next`) test ✅ (152, 15 files) build ✅ e2e ✅ (153 passed, 7 skipped: 1 PDF + 6 flip-readiness). First Load JS (gzip): home 187.3 kB, `/work/*` 182.2 kB (unchanged).
+- Pending: F5-01 (b), F4-07 `public/resume.pdf`, F0-03 to F0-06, the corrected Tu Conjunto illustration. Unpushed local commits only; nothing pushed.
+
 ### 2026-11-13 · F4-01 to F4-08 · Phase 4: terminal, SEO, 404, analytics, e2e and quality pass
 - Done: pure command parser (`src/lib/terminal/commands.ts`) and the interactive hero terminal (`TerminalPrompt`, a small client island; parser lazy-loaded; history, Tab, Ctrl+L, live region; static fallback without JS). SEO: metadata, static Open Graph images per page, Person JSON-LD, sitemap (drafts excluded), robots, favicon/Apple icon and `/favicon.ico` (the 404 that cost Best Practices is gone). Terminal-style 404. `@vercel/analytics` mounted once, only on Vercel builds. E2E for the terminal, 404, metadata, JSON-LD, sitemap, robots and icons. F4-08 local quality pass: axe 0 violations (home, home after commands, both case studies, 404; 375 and 1440 px); fixed AA contrast on the case-study labels and the case cover's loading priority. One commit per ticket (F4-07 has none: it is the owner's task).
 - Decisions: D-51 to D-55.
