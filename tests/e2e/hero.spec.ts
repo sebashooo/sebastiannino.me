@@ -44,16 +44,31 @@ test("terminal shows the command and exactly the stack from the data", async ({ 
   }
 });
 
-test("terminal is static: no input, and the decorative characters are hidden from assistive tech", async ({
-  page,
+test("without JavaScript the terminal is static: no input, decorative characters hidden from assistive tech", async ({
+  browser,
 }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
   await page.goto("/");
   const widget = terminal(page);
+  await expect(widget).toContainText("sebastian --stack");
   await expect(widget.locator("input, textarea, button")).toHaveCount(0);
   // Both ❯ prompts and the "terminal · zsh" bar are aria-hidden (3 elements + the nested ❯ span)
   const prompts = widget.locator('[aria-hidden="true"]', { hasText: "❯" });
   await expect(prompts).toHaveCount(2);
   await expect(widget.locator('div[aria-hidden="true"]')).toContainText("zsh");
+  await context.close();
+});
+
+test("with JavaScript the terminal gets a labelled input and a live output region", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const widget = terminal(page);
+  await expect(widget.getByRole("textbox", { name: /type a command/i })).toBeVisible();
+  const log = widget.getByRole("log", { name: "Terminal output" });
+  await expect(log).toHaveAttribute("aria-live", "polite");
+  await expect(log).toBeEmpty();
 });
 
 for (const width of [375, 1440]) {

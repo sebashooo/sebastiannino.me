@@ -1,10 +1,12 @@
 import { getSkillGroups } from "@/data";
 import { STACK_COMMAND, buildStackOutput } from "@/lib/terminal/static-output";
+import { TerminalPrompt } from "./TerminalPrompt";
 
 /**
- * Static hero terminal (Server Component, no JS shipped): shows `sebastian --stack` as if it
- * had been typed, with the output built from the skill data. It is real text in the DOM, so
- * search engines and screen readers get it. The interactive version arrives in F4-02.
+ * Hero terminal. The figure is a Server Component: it shows `sebastian --stack` as if it had been
+ * typed, with the output built from the skill data, as real text in the DOM, so search engines,
+ * screen readers and no-JS visitors get it. The interactive prompt (TerminalPrompt, the only
+ * client part, F4-02) is progressive enhancement on top of that.
  */
 export function TerminalWidget() {
   const rows = buildStackOutput(getSkillGroups());
@@ -40,10 +42,8 @@ export function TerminalWidget() {
           ))}
         </dl>
 
-        {/* Prompt waiting for input: visual only until the interactive terminal (F4-02) */}
-        <p aria-hidden="true" className="m-0 mt-1.5 text-accent">
-          ❯
-        </p>
+        {/* Interactive prompt (client island); renders the static glyph until hydrated and without JS */}
+        <TerminalPrompt />
       </div>
     </figure>
   );
