@@ -2,6 +2,10 @@
 
 Personal portfolio of Sebastián Niño, a backend-minded full-stack developer. Goal: land a junior full-stack/backend/data/cloud role. Launch deadline: **Nov 19, 2026**.
 
+## HARD RULE: never push
+
+**Never run `git push` (or force-push, or open/merge PRs) unless the user's CURRENT message explicitly says to push. If CI is red, commit the fix locally and tell the user; do not push it on your own.** Earlier permission does not carry over, and a prompt that says "Do NOT push" is final.
+
 ## Read first
 
 - `context/01-perfil-profesional.md`: the only source of truth for facts (never invent metrics, clients or certifications)
@@ -39,6 +43,10 @@ Next.js 16 (App Router) · TypeScript strict · Tailwind CSS v4 (`@theme` tokens
 - **Git:** conventional commits in English. Commit when a task is done; push to `origin` after each completed ticket once a remote exists; never force-push; never commit secrets (`.env*.local` ignored).
 - **Out-of-repo folders:** `context/`, `design/`, `docs/` are planning material. Keep them in the repo but exclude them from the build and lint.
 - Ask before adding a dependency that is not listed in the stack, and explain why it is needed.
+
+## Lessons learned
+
+- Before every commit run typecheck from a clean state (delete `.next` first). Never use the global `PageProps`/`LayoutProps` types: declare params types explicitly. CI runs on a clean checkout, where `.next/types` does not exist.
 
 ## Commands
 

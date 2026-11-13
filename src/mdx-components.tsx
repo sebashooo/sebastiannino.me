@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import type { ComponentPropsWithoutRef } from "react";
+import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 
 /**
  * Prose styling for the case studies (D-43): plain elements mapped to the design tokens.
@@ -7,6 +8,8 @@ import type { ComponentPropsWithoutRef } from "react";
  * Headings carry the id added by rehype-slug; scroll-mt keeps them clear of the sticky header.
  */
 const components: MDXComponents = {
+  // <ArchitectureDiagram {...diagram} /> inside the case studies (D-45)
+  ArchitectureDiagram,
   h2: (props: ComponentPropsWithoutRef<"h2">) => (
     <h2
       className="mt-12 mb-4 scroll-mt-24 font-display text-2xl leading-tight font-semibold text-text first:mt-0"

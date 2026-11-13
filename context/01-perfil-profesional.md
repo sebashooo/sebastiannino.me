@@ -19,7 +19,7 @@
 **Diferenciadores a destacar:**
 1. **Productos reales, no tutoriales:** Managerapp lo usan 2 negocios reales.
 2. **Seguridad de datos:** aislamiento multi-tenant con PostgreSQL RLS; detectó que el rol creado por el proveedor se saltaba RLS en silencio y lo corrigió con un rol de runtime de mínimo privilegio. Esta es la historia estrella para entrevistas.
-3. **Calidad:** 489 tests E2E (incluye tests de aislamiento entre tenants), Vitest + GitHub Actions, despliegue continuo.
+3. **Calidad:** Managerapp con unos 843 casos de prueba en 141 archivos (conteo estático; Vitest y CI en GitHub Actions) y Tu Conjunto con cientos de tests E2E (incluye tests de aislamiento entre tenants); despliegue continuo.
 4. **Comunicación:** más de 2 años de soporte bilingüe a clientes de EE. UU. (Amazon, Foundever/Affirm).
 5. **Desarrollo asistido por IA, con criterio:** usa Claude Code y revisa y prueba todo lo que produce.
 
@@ -40,7 +40,7 @@ Next.js 16 · TypeScript · React · Tailwind · PostgreSQL (Neon) · Prisma · 
 - Aislamiento de datos por tenant con **PostgreSQL Row Level Security** a nivel de base de datos. Detectó que el rol de base de datos creado por el proveedor se saltaba RLS en silencio y lo corrigió con un **rol de runtime dedicado de mínimo privilegio**.
 - Esquema relacional de **45 modelos** con Prisma (decimales exactos para dinero, log de inventario auditable). Autenticación con Google OAuth y 2FA, con acceso por rol y por sede.
 - Flujo mobile-first de códigos de barras: generación EAN-13 y escaneo con cámara, con fallback para Safari/iOS.
-- CI/CD: tests (Vitest) en GitHub Actions; cada push a master despliega automáticamente en Vercel.
+- CI/CD: unos 843 casos de prueba en 141 archivos (conteo estático, Vitest) que corren en GitHub Actions; cada push a master despliega automáticamente en Vercel.
 - **Visibilidad:** repo privado; se usa en el negocio de Sebastián. En el portafolio, **solo demo con datos ficticios**. Tiene demo grabada.
 - **Rol (confirmado por Sebastián el 2026-11-12):** "Founder & Full-Stack Developer" (producto propio, en uso en su negocio).
 
@@ -48,10 +48,10 @@ Next.js 16 · TypeScript · React · Tailwind · PostgreSQL (Neon) · Prisma · 
 Rol: **desarrollador de backend y base de datos** · NestJS · TypeScript · PostgreSQL · Prisma · React · Claude Code
 - Diseñó y construyó el backend y el modelo de datos PostgreSQL (migraciones versionadas). Reemplaza el libro de papel de portería y da a los administradores un dashboard en tiempo real.
 - Arquitectura multi-tenant: los datos de cada conjunto están aislados y toda consulta se filtra por la identidad de la sesión, nunca por datos enviados por el cliente.
-- Autenticación y control de acceso de 4 roles, con sesiones en cookies seguras, bloqueo por intentos de login y contraseñas hasheadas, alineado con la Ley 1581 (protección de datos en Colombia).
-- Módulos: aprobación de visitantes desde el celular, paquetes, reservas, pagos con comprobantes, documentos, seguridad con QR y notificaciones en tiempo real.
+- Autenticación y control de acceso de 5 roles (superadmin, admin, recepcion, residente, contador), con sesiones en cookies seguras, bloqueo por intentos de login y contraseñas hasheadas, alineado con la Ley 1581 (protección de datos en Colombia).
+- 28 módulos funcionales, entre ellos: aprobación de visitantes desde el celular, paquetes, reservas, pagos con comprobantes, documentos, seguridad con QR y notificaciones en tiempo real.
 - IA (Gemini) para redactar comunicados, clasificar quejas y responder preguntas sobre el reglamento, con límites de uso y datos anonimizados.
-- **489 tests E2E automatizados** (Jest, Supertest), incluidos tests de aislamiento entre tenants. Desplegado en Render, Neon y Vercel. API documentada con Swagger.
+- **Cientos de tests E2E automatizados** (Jest, Supertest), incluidos tests de aislamiento entre tenants (el número exacto está pendiente de verificación). Desplegado en Render, Neon y Vercel. API documentada con Swagger.
 - **Visibilidad:** repo privado; en desarrollo, buscando conjuntos piloto. **Solo demo con datos ficticios.** Tiene demo grabada.
 
 ### Sistema de parqueadero y facturación — Lead Backend Developer (proyecto académico)
