@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { Footer } from "@/components/Footer";
@@ -58,6 +59,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        {/*
+          Vercel Web Analytics: cookieless, so no consent banner is needed (D-51). Mounted once, here,
+          and only when the build runs on Vercel (VERCEL is set at build time), so local runs, CI and
+          the e2e suite send nothing and never request the /_vercel script that only exists there.
+        */}
+        {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
   );
