@@ -37,14 +37,14 @@ export function CaseStudyHeader({
         <dl className="m-0 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
           {meta.map(({ label, value }) => (
             <div key={label} className="flex flex-col gap-1">
-              <dt className="font-mono text-xs tracking-wider text-text-subtle uppercase">
+              <dt className="font-mono text-xs tracking-wider text-text-muted uppercase">
                 {label}
               </dt>
               <dd className="m-0 text-text">{value}</dd>
             </div>
           ))}
           <div className="flex flex-col gap-2 sm:col-span-2 lg:col-span-3">
-            <dt className="font-mono text-xs tracking-wider text-text-subtle uppercase">Stack</dt>
+            <dt className="font-mono text-xs tracking-wider text-text-muted uppercase">Stack</dt>
             <dd className="m-0">
               <StackChips items={project.stack} />
             </dd>
@@ -57,7 +57,12 @@ export function CaseStudyHeader({
 
         <figure className="m-0 flex flex-col gap-2">
           <div className="overflow-hidden rounded-card border border-border">
-            <ProjectMedia media={project.media} />
+            {/* The cover is the largest thing above the fold here: load it first, at the width it is shown */}
+            <ProjectMedia
+              media={project.media}
+              eager
+              sizes="(min-width: 1160px) 1112px, calc(100vw - 32px)"
+            />
           </div>
           {project.media?.caption ? (
             <figcaption className="font-mono text-xs text-text-muted">

@@ -51,7 +51,11 @@ test("the contact line is built from the profile data", async ({ page }) => {
 
 test("there is no contact form (D-09)", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("form, input, textarea")).toHaveCount(0);
+  // Wait for hydration: the terminal's command box is the one input allowed on the page (F4-02)
+  await expect(page.getByRole("textbox", { name: /type a command/i })).toBeVisible();
+  await expect(page.locator("form, textarea")).toHaveCount(0);
+  await expect(page.locator("input")).toHaveCount(1);
+  await expect(page.locator("#contact").locator("form, input, textarea")).toHaveCount(0);
 });
 
 test("the footer is slim: no duplicated email or profile links", async ({ page }) => {

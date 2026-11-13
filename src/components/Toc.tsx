@@ -31,7 +31,7 @@ export function Toc({ items }: { items: TocItem[] }) {
       </details>
       <aside className="hidden lg:block">
         <nav aria-label="On this page" className="sticky top-24 flex flex-col gap-3">
-          <p className="m-0 font-mono text-xs tracking-wider text-text-subtle uppercase">
+          <p className="m-0 font-mono text-xs tracking-wider text-text-muted uppercase">
             On this page
           </p>
           <List items={items} />

@@ -166,6 +166,30 @@ test.describe("real content (F3-05)", () => {
   });
 });
 
+test("the case-study cover loads first (eager, high priority) and the home cards stay lazy", async ({
+  page,
+}) => {
+  await page.goto("/work/managerapp");
+  const cover = page.locator("header img").first();
+  await expect(cover).toHaveAttribute("loading", "eager");
+  await expect(cover).toHaveAttribute("fetchpriority", "high");
+
+  await page.goto("/");
+  await expect(page.locator("#work img").first()).toHaveAttribute("loading", "lazy");
+});
+
+test("the small metadata labels meet AA contrast (muted, not subtle, at 12px)", async ({
+  page,
+}) => {
+  await page.goto("/work/managerapp");
+  const colors = await page
+    .locator("header dt")
+    .evaluateAll((els) => els.map((el) => getComputedStyle(el).color));
+  expect(colors.length).toBeGreaterThanOrEqual(4);
+  // text-muted is #a1a1aa; text-subtle (#71717a) is only 4.1:1 on the page background
+  for (const color of colors) expect(color).toBe("rgb(161, 161, 170)");
+});
+
 test("an unknown slug returns 404", async ({ page }) => {
   const response = await page.goto("/work/does-not-exist");
   expect(response?.status()).toBe(404);

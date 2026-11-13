@@ -33,14 +33,14 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [x] **F3-05 (P1) 🤖 Implementar los dos MDX** con diagramas y galerías. *Done 2026-11-13 (D-49, D-50): both pages render the final texts with their diagrams, covers and D-44 captions, still `draft: true`. No galleries or clips: none exist (F2-07 stays partial). Phase 3 closed.*
 
 ## Fase 4 · Interactividad, SEO, calidad (Día 6)
-- [ ] **F4-01 (P1) 🤖 Parser de comandos** puro en `lib/terminal` con tests en Vitest (todos los comandos + desconocido + vacío).
-- [ ] **F4-02 (P1) 🤖 TerminalWidget interactivo** (historial ↑/↓, Tab, `aria-live`, reduced-motion).
-- [ ] **F4-03 (P1) 🤖 SEO:** metadata, OG dinámica, JSON-LD Person, sitemap, robots, favicon. *Note: bring the favicon forward: /favicon.ico returns 404 and costs Best Practices.*
-- [ ] **F4-04 (P2) 🤖 404 tipo terminal.**
-- [ ] **F4-05 (P2) 🤖 Vercel Analytics.**
-- [ ] **F4-06 (P1) 🤖 E2E:** home, `help` en la terminal, navegación a los casos, descarga del CV.
-- [ ] **F4-07 (P1) 🧑 CV público** en inglés, compatible con ATS (H2), sin teléfono → `public/resume.pdf`.
-- [ ] **F4-08 (P1) 🤖 Performance pass:** Lighthouse mobile >= 95 on the Vercel preview. Investigate TBT (framework chunk, render-blocking CSS, `Reveal` and nav client code) and re-measure after F2-07 media lands.
+- [x] **F4-01 (P1) 🤖 Parser de comandos** puro en `lib/terminal` con tests en Vitest (todos los comandos + desconocido + vacío). *Done 2026-11-13 (D-52).*
+- [x] **F4-02 (P1) 🤖 TerminalWidget interactivo** (historial ↑/↓, Tab, `aria-live`, reduced-motion). *Done 2026-11-13 (D-52): client island `TerminalPrompt`, parser lazy-loaded; home JS +1.5 kB gzip. No typing animation.*
+- [x] **F4-03 (P1) 🤖 SEO:** metadata, OG dinámica, JSON-LD Person, sitemap, robots, favicon. *Done 2026-11-13 (D-53); the /favicon.ico 404 is gone. Drafts stay out of the sitemap and noindex until F5-01. `SITE.url` points at https://sebastiannino.me before the domain is connected (F0-04).*
+- [x] **F4-04 (P2) 🤖 404 tipo terminal.** *Done 2026-11-13 (D-54).*
+- [x] **F4-05 (P2) 🤖 Vercel Analytics.** *Done 2026-11-13 (D-51): cookieless, mounted once, only on Vercel builds; +2.2 kB gzip per route.*
+- [x] **F4-06 (P1) 🤖 E2E:** home, `help` en la terminal, navegación a los casos, descarga del CV. *Done 2026-11-13: terminal, 404, SEO, JSON-LD, sitemap, robots and icon specs. The `/resume.pdf` serving test is skipped until F4-07 delivers the file.*
+- [ ] **F4-07 (P1) 🧑 CV público** en inglés, compatible con ATS (H2), sin teléfono → `public/resume.pdf`. *PENDING (owner). Not created on purpose. Until then the "Download résumé" button and the terminal's `resume` command link to a URL that returns 404; `tests/e2e/seo.spec.ts` skips its PDF test until the file exists.*
+- [~] **F4-08 (P1) 🤖 Performance pass:** Lighthouse mobile >= 95 on the Vercel preview. Investigate TBT (framework chunk, render-blocking CSS, `Reveal` and nav client code) and re-measure after F2-07 media lands. *Partial 2026-11-13 (D-55): local pass done (axe 0 violations; Lighthouse a11y/best-practices 100, home SEO 100; case-page contrast and LCP discovery fixed). Still open: home performance 71 to 96 locally (median about 90) and case page about 72 because of TBT from the shared framework chunk (a larger investigation); Vercel preview runs are PENDING until the repo is imported (F0-03).*
 
 ## Fase 5 · QA y lanzamiento (Día 7)
 - [ ] **F5-01 (P1) 🤖 QA completo** según `12-estrategia-pruebas.md` (incluye la auditoría de privacidad). Also: no "coming soon" placeholders left on the home at launch. **BLOCKER:** the Tu Conjunto cover must be the corrected architecture illustration (the current one shows the 489 figure, a tenant layer, 3 clients and a residentes module); also rewrite its alt text, and keep the D-44 caption rule ("Architecture overview · illustration"). See D-46 and D-47. Set `draft: false` on both case studies in `src/data/case-studies.ts` and verify they are indexable (no noindex robots meta, present in the sitemap once F4-03 exists).

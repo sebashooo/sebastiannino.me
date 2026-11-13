@@ -63,19 +63,23 @@ Package manager: npm (Node ≥ 22). The remote is `github.com/sebashooo/sebastia
 ## Folder structure (current)
 
 ```
-src/app/        layout.tsx (fonts, metadata) · page.tsx (placeholder home) · globals.css (@theme tokens)
-src/components/ Container · Button · SectionHeader · Logo · SkipLink · Nav (+ NavShell, MobileMenu: the only client components) · Footer
-                Hero · TerminalWidget · WorkSection · ProjectCard · ProjectMedia · OtherProjects · StackChips · AboutSection · ExperienceSection · CertificationsSection · CertCard · ContactSection · Reveal (client, motion/mini)
+src/app/        layout.tsx (fonts, metadata, Analytics) · page.tsx (home + JSON-LD) · globals.css (@theme tokens) · work/[slug] (case studies + their OG image)
+                not-found.tsx (terminal 404) · sitemap.ts · robots.ts · opengraph-image.tsx · icon.tsx · apple-icon.tsx · favicon.ico/route.ts
+src/components/ Container · Button · SectionHeader · Logo · SkipLink · Nav (+ NavShell, MobileMenu) · Footer
+                Client components (the only ones): NavShell · MobileMenu · Reveal (motion/mini) · CopyEmailButton · TerminalPrompt (interactive terminal)
+                Hero · TerminalWidget (server, static output + TerminalPrompt) · WorkSection · ProjectCard · ProjectMedia · OtherProjects · StackChips · AboutSection · ExperienceSection · CertificationsSection · CertCard · ContactSection · Reveal (client, motion/mini)
 src/data/       Typed content + getters (index.ts); import only from "@/data" (ESLint-enforced) · data.test.ts validates it
 src/lib/        cert-status.ts (certification status → label and chip variant)
-src/lib/terminal/ static-output.ts (pure builder for the terminal's stack output; reused by the interactive terminal)
-src/lib/        site.ts (site constants, email, socials) · nav.ts (nav links) · *.test.ts (Vitest, next to the code)
+src/lib/terminal/ static-output.ts (pure builder for the stack output) · commands.ts (pure command parser used by the interactive terminal)
+src/lib/        site.ts (site constants, canonical URL, email, socials) · nav.ts (nav links) · seo.ts (JSON-LD, sitemap entries) · og.tsx (OG images and icons)
+                toc.ts (case-study TOC) · diagram/ (ArchitectureDiagram layout) · *.test.ts (Vitest, next to the code)
+src/content/work/ Case-study MDX + diagrams (content, not components)
 tests/e2e/      Playwright specs
 .github/workflows/ci.yml   job 1: lint+typecheck+test+build · job 2: Playwright
 context/ design/ docs/ prompts/   planning material, excluded from lint, typecheck and build
 ```
 
-Planned folders (`src/content`, `src/lib/terminal`) are in `context/04`; create them in the phase that needs them.
+The folders in `context/04` that do not exist yet should be created in the phase that needs them.
 
 ## REPORT format (end every task with this)
 
