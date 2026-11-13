@@ -3,12 +3,13 @@
  * only, never from the individual files (enforced by an ESLint rule), so the shape of the
  * stored data can change without touching the UI.
  */
+import { caseStudies } from "./case-studies";
 import { certifications } from "./certifications";
 import { experience } from "./experience";
 import { profile } from "./profile";
 import { projects } from "./projects";
 import { skillGroups } from "./skills";
-import type { Certification, Experience, Profile, Project, SkillGroup } from "./types";
+import type { CaseStudy, Certification, Experience, Profile, Project, SkillGroup } from "./types";
 
 export type * from "./types";
 
@@ -47,4 +48,29 @@ export function getExperience(kind?: Experience["kind"]): Experience[] {
 
 export function getCertifications(): Certification[] {
   return [...certifications];
+}
+
+export function getCaseStudies(): CaseStudy[] {
+  return [...caseStudies];
+}
+
+export function getCaseStudy(slug: string): CaseStudy | undefined {
+  return caseStudies.find((c) => c.slug === slug);
+}
+
+/**
+ * Previous/next case study around `slug`, ordered by Project.order. No wrap-around: the first
+ * has no previous and the last has no next. Each side carries the project (name, one-liner).
+ */
+export function getAdjacentCaseStudies(slug: string): {
+  previous?: { caseStudy: CaseStudy; project: Project };
+  next?: { caseStudy: CaseStudy; project: Project };
+} {
+  const entries = caseStudies
+    .map((caseStudy) => ({ caseStudy, project: getProjectBySlug(caseStudy.slug) }))
+    .filter((e): e is { caseStudy: CaseStudy; project: Project } => e.project !== undefined)
+    .sort((a, b) => a.project.order - b.project.order);
+  const i = entries.findIndex((e) => e.caseStudy.slug === slug);
+  if (i === -1) return {};
+  return { previous: entries[i - 1], next: entries[i + 1] };
 }

@@ -45,8 +45,6 @@ export function ProjectCard({ project }: { project: Project }) {
           {project.links.caseStudy ? (
             <Link
               href={project.links.caseStudy}
-              // The /work/<slug> pages arrive with F3-01; skip prefetching until then (it would 404).
-              prefetch={false}
               data-stretched-link
               className="w-fit text-sm font-medium text-accent after:absolute after:inset-0 after:content-[''] hover:text-accent-hover"
             >

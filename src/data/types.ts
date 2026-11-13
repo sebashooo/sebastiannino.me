@@ -44,6 +44,18 @@ export type Project = {
   order: number;
 };
 
+/**
+ * Case-study entry (D-40). Role, period, stack, status and privateNote are NOT stored here:
+ * they come from the Project with the same slug, so each fact lives in one place.
+ */
+export type CaseStudy = {
+  slug: string; // same as Project.slug; the MDX file is src/content/work/<slug>.mdx
+  summary: string; // meta description and header lead
+  publishedAt: string; // ISO date, "2026-11-16"
+  updatedAt?: string;
+  draft: boolean; // true → noindex until the real text lands (F3-05)
+};
+
 export type Experience = {
   company: string;
   role: string;

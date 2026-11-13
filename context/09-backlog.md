@@ -26,7 +26,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [ ] **F2-07 (P1) 🧑 Media demo.** Capturas y clips con datos ficticios → `public/media/` (checklist en `02`). *Note: carried over from Phase 2; needed by F3-05 (galleries) and F5-01 (privacy audit).*
 
 ## Fase 3 · Casos de estudio (Días 4–5)
-- [ ] **F3-01 (P1) 🤖 Infraestructura MDX** + layout del caso (TOC, metadata, anterior/siguiente) + `generateStaticParams`.
+- [x] **F3-01 (P1) 🤖 Infraestructura MDX** + layout del caso (TOC, metadata, anterior/siguiente) + `generateStaticParams`. *Done 2026-11-12 (D-39 to D-43). Placeholder MDX for both slugs, both `draft: true`.*
 - [ ] **F3-02 (P1) 🤖 ArchitectureDiagram** (SVG/JSX con los tokens).
 - [ ] **F3-03 (P1) 💬→🧑 Borrador del caso Managerapp** (Claude Chat redacta y Sebastián corrige los datos).
 - [ ] **F3-04 (P1) 💬→🧑 Borrador del caso Tu Conjunto.**
@@ -43,7 +43,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [ ] **F4-08 (P1) 🤖 Performance pass:** Lighthouse mobile >= 95 on the Vercel preview. Investigate TBT (framework chunk, render-blocking CSS, `Reveal` and nav client code) and re-measure after F2-07 media lands.
 
 ## Fase 5 · QA y lanzamiento (Día 7)
-- [ ] **F5-01 (P1) 🤖 QA completo** según `12-estrategia-pruebas.md` (incluye la auditoría de privacidad). Also: no "coming soon" placeholders left on the home at launch.
+- [ ] **F5-01 (P1) 🤖 QA completo** según `12-estrategia-pruebas.md` (incluye la auditoría de privacidad). Also: no "coming soon" placeholders left on the home at launch. Set `draft: false` on both case studies in `src/data/case-studies.ts` and verify they are indexable (no noindex robots meta, present in the sitemap once F4-03 exists).
 - [ ] **F5-02 (P1) 🤖 README del repo** (captura, stack, decisiones, scripts).
 - [ ] **F5-03 (P1) 🧑 Verificación en producción:** HTTPS, redirección de `www`, correo, móvil real.
 - [ ] **F5-04 (P1) 🧑 LinkedIn: básicos + post de lanzamiento** (`06`).
@@ -58,3 +58,4 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [ ] **F6-07 🤖 Blog con MDX** + primer post ("How a database role silently bypassed my RLS").
 - [ ] **F6-08 🧑 Envío como hello@** (SMTP + SPF/DKIM/DMARC).
 - [ ] **F6-09 (opcional)** Versión en español · formulario de contacto (requiere aviso de privacidad, ver `10`) · 1–2 PRs a open source (H12).
+- [ ] **F6-10 (P3) 🤖 Case-study scroll-spy:** highlight the current section in the table of contents while scrolling (needs a small client component; skipped in F3-01 to keep zero client JS, D-42).

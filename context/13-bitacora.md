@@ -16,6 +16,14 @@ Sebastián vuelve a subir este archivo (y `09`, `10`) al proyecto de Claude **al
 
 ---
 
+### 2026-11-12 · F3-01 · MDX infrastructure and case-study pages
+- Done: `/work/[slug]` is statically generated (SSG) for `managerapp` and `tu-conjunto` from local MDX (`@next/mdx`, `remark-gfm`, `rehype-slug`; plugins by package name for Turbopack). Case-study layout (back link, header with metadata grid, cover slot, sticky TOC / collapsible `<details>`, previous/next, contact CTA). Data in `src/data/case-studies.ts` plus getters; typed registry in `src/content/work`; TOC extractor in `src/lib/toc.ts`; prose styles in `src/mdx-components.tsx`. Both placeholders are `draft: true` (noindex). Home cards now prefetch their link (the temporary `prefetch={false}` is gone). `public/media/README.md` documents the media contract; `.gitkeep` in both project folders. The ProjectMedia slot is `aspect-[16/10]`, matching the contract (no change needed). Sebastián approved the hero tagline and the About text and tone as they are (2026-11-12).
+- First Load JS (gzip, scripts in the prerendered HTML): home 183.7 kB; `/work/*` 180.1 kB (raw 591.5 vs 581.6 kB). No new Client Component.
+- Dependabot `minimatch`: no PR exists; the failing runs are Dependabot update jobs ("npm_and_yarn in /. for minimatch"), not our CI. Error `security_update_not_possible`: the patched minimatch is 11.0.1 but the only vulnerable copy (10.2.6) is a transitive dependency of `@typescript-eslint/typescript-estree` (via `eslint-config-next`) and Dependabot can't reach 11.x through that parent's range. It resolves when `typescript-eslint` ships a release that accepts a patched minimatch (or via an npm `overrides`, not applied here).
+- Decisions: D-39 to D-43. Backlog: F3-01 done; F6-10 (scroll-spy, P3) added; F5-01 now also flips `draft: false`.
+- Checks: lint ✅ typecheck ✅ test ✅ (61) build ✅ e2e ✅ (99: 82 existing + 17 new).
+- Pending: F2-07 covers task next (images must exist in `portfolio-media/inbox`), F3-02 ArchitectureDiagram, F3-03/F3-04 drafts, F3-05 real MDX.
+
 ### 2026-11-12 · Housekeeping · Close Phase 2
 - Done: `context/01` records that Sebastián confirmed on 2026-11-12 his Managerapp role is "Founder & Full-Stack Developer" (his own product, in use in his business); `src/data/projects.ts` already uses exactly that role, so no code changed. `context/09`: added F4-08 (performance pass, Lighthouse mobile >= 95 on the Vercel preview), a favicon note on F4-03 and a carried-over note on F2-07. Pushed 8f9a285 and this commit.
 - Decisions: none.

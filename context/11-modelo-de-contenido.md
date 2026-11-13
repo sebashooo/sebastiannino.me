@@ -74,19 +74,21 @@ export type TerminalCommand = {
 };
 ```
 
-## Frontmatter de los casos de estudio (MDX)
-```yaml
----
-slug: managerapp
-title: "Managerapp"
-summary: "Multi-tenant SaaS for small businesses…"
-role: "Founder & Full-Stack Developer"
-period: "Sep 2026 – Present"
-stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Vercel"]
-cover: "/media/managerapp/cover.webp"
-publishedAt: "2026-11-16"
----
+## Case-study metadata (MDX)
+**Superseded by D-40:** the MDX files carry no YAML frontmatter. Metadata is split so each fact lives once:
+
+- From the `Project` (`src/data/projects.ts`): `name`, `role`, `period`, `stack`, `status`, `privateNote`, `media` (cover) and `links.caseStudy`.
+- From `CaseStudy` (`src/data/case-studies.ts`):
+```ts
+export type CaseStudy = {
+  slug: string;       // same as Project.slug; file is src/content/work/<slug>.mdx
+  summary: string;    // meta description and header lead
+  publishedAt: string; // ISO date
+  updatedAt?: string;
+  draft: boolean;     // true → robots noindex until the real text lands
+};
 ```
+- The slug → MDX module registry is `src/content/work/index.ts` (D-41).
 
 ## Reglas
 - **Una sola fuente de verdad:** si un dato aparece en la home, en la terminal y en el caso de estudio, se define una sola vez.
