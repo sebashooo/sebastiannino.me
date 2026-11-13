@@ -17,7 +17,7 @@
 >
 > I'm a Systems Engineering student (8th semester) from Colombia. My main project, Managerapp, is a multi-tenant SaaS used by real businesses: Next.js, PostgreSQL with Row Level Security, Prisma, CI/CD to Vercel. While hardening it I found that the database role created by the provider was silently bypassing RLS, and I fixed it with a least-privilege runtime role.
 >
-> I also led the backend and data model of Tu Conjunto a la Mano, a NestJS platform for residential complexes with 489 automated end-to-end tests, including tenant-isolation tests.
+> I also led the backend and data model of Tu Conjunto a la Mano, a NestJS platform for residential complexes with hundreds of automated end-to-end tests, including tenant-isolation tests.
 >
 > Before moving into development, I spent 2+ years supporting US customers in English (Amazon, Foundever), which taught me to communicate clearly under pressure.
 >

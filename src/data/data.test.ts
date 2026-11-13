@@ -162,7 +162,7 @@ describe("privacy", () => {
       expect(sample).toMatch(PHONE_PATTERN);
     }
     // Facts that look numeric but are not phone numbers
-    for (const ok of ["489 E2E tests", "Jun 2024 – Jun 2026", "Expected graduation Dec 2027"]) {
+    for (const ok of ["120 E2E tests", "Jun 2024 – Jun 2026", "Expected graduation Dec 2027"]) {
       expect(ok).not.toMatch(PHONE_PATTERN);
     }
   });

@@ -51,7 +51,7 @@ Rol: **desarrollador de backend y base de datos** · NestJS · TypeScript · Pos
 - Autenticación y control de acceso de 5 roles (superadmin, admin, recepcion, residente, contador), con sesiones en cookies seguras, bloqueo por intentos de login y contraseñas hasheadas, alineado con la Ley 1581 (protección de datos en Colombia).
 - 28 módulos funcionales, entre ellos: aprobación de visitantes desde el celular, paquetes, reservas, pagos con comprobantes, documentos, seguridad con QR y notificaciones en tiempo real.
 - IA (Gemini) para redactar comunicados, clasificar quejas y responder preguntas sobre el reglamento, con límites de uso y datos anonimizados.
-- **Cientos de tests E2E automatizados** (Jest, Supertest), incluidos tests de aislamiento entre tenants (el número exacto está pendiente de verificación). Desplegado en Render, Neon y Vercel. API documentada con Swagger.
+- **Cientos de tests E2E automatizados** (Jest, Supertest), incluidos tests de aislamiento entre tenants. Desplegado en Render, Neon y Vercel. API documentada con Swagger.
 - **Visibilidad:** repo privado; en desarrollo, buscando conjuntos piloto. **Solo demo con datos ficticios.** Tiene demo grabada.
 
 ### Sistema de parqueadero y facturación — Lead Backend Developer (proyecto académico)

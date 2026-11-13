@@ -39,10 +39,11 @@ export const projects: Project[] = [
     period: "2026",
     status: "in-development",
     oneLiner:
-      "Residential-complex platform. Led backend & data model; 489 E2E tests including tenant isolation.",
+      "Residential-complex platform. Led backend & data model; hundreds of end-to-end tests including tenant isolation.",
     stack: ["NestJS", "TypeScript", "PostgreSQL", "Prisma", "React", "Jest", "Supertest"],
     featured: true,
-    // Pending claim verification (Q-07): the illustration makes claims about the real backend.
+    // F5-01 BLOCKER: this cover is the outdated illustration (489 figure, tenant layer, 3 clients, a
+    // residentes module). Replace it with the corrected one and rewrite this alt text (D-46, D-47).
     media: {
       type: "image",
       src: "/media/tu-conjunto/cover.webp",

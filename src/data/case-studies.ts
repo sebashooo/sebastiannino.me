@@ -13,7 +13,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "tu-conjunto",
     summary:
-      "Residential-complex platform. Led backend and data model; 489 E2E tests including tenant isolation.",
+      "Residential-complex platform. Led backend and data model; hundreds of end-to-end tests including tenant isolation.",
     publishedAt: "2026-11-12",
     draft: true,
   },

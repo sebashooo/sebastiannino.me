@@ -63,6 +63,6 @@ Leyenda: 🤖 = Claude Code · 🧑 = Sebastián · 💬 = Claude Chat
 2. **README del perfil de GitHub** (`sebashooo/sebashooo`) + pinned repos.
 3. **Certificaciones:** presentar el examen AWS CLF-C02 → GitHub Foundations (si hay voucher) → ruta MongoDB Associate Developer (guía en `docs/`). Actualizar `certifications.ts` con cada logro.
 4. **Proyecto público pequeño de backend/data** (para tener código visible): por ejemplo, una API en NestJS + MongoDB Atlas (M0) o un pipeline de datos en AWS Free Tier, con tests y CI. Se agrega a "Other projects".
-5. **Blog técnico:** 1 post cada 2 semanas (ideas: "How a database role silently bypassed my RLS", "Testing tenant isolation with 489 E2E tests", "What I learned studying for AWS Cloud Practitioner").
+5. **Blog técnico:** 1 post cada 2 semanas (ideas: "How a database role silently bypassed my RLS", "Testing tenant isolation with hundreds of E2E tests", "What I learned studying for AWS Cloud Practitioner").
 6. Versión en español (opcional), un formulario de contacto (opcional) y `cv.sebastiannino.me` (opcional).
 7. Correo: configurar el envío como hello@ con SPF/DKIM.

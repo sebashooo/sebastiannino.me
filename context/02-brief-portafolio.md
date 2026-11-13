@@ -32,7 +32,7 @@ Que un reclutador o tech lead, en **menos de 30 segundos**, entienda: *qué tipo
 ### 3. Selected work (2 tarjetas grandes)
 Cada tarjeta lleva: captura de la demo (o video corto en loop, sin audio), nombre, una línea de impacto, chips de stack y "Read case study →". **Sin link a repos** (son privados); en su lugar: "Code private · walkthrough available on request".
 - **Managerapp:** *Multi-tenant SaaS for small businesses — in production with 2 real businesses. Found and fixed a silent RLS bypass.*
-- **Tu Conjunto a la Mano:** *Residential-complex platform. Led backend & data model; 489 E2E tests including tenant isolation.*
+- **Tu Conjunto a la Mano:** *Residential-complex platform. Led backend & data model; hundreds of end-to-end tests including tenant isolation.*
 
 Debajo, "Other projects" (lista compacta): Parking & Billing System (Python/C++); el mismo portafolio (código **público** en GitHub: así hay un repo visible).
 
@@ -55,7 +55,7 @@ Cada uno en inglés, de 800 a 1.200 palabras, con esta estructura:
 3. **My role & stack**
 4. **Architecture:** diagrama (cajas y flechas: cliente → app → API → DB con RLS → servicios externos) + explicación.
 5. **Key decisions & trade-offs:** 3 decisiones, con alternativa descartada y por qué.
-6. **Hardest problem:** Managerapp → el bypass silencioso de RLS (cómo lo detectó, por qué pasaba, el fix con un rol de mínimo privilegio y cómo lo verificó con tests). Tu Conjunto → aislamiento multi-tenant + 489 tests.
+6. **Hardest problem:** Managerapp → el bypass silencioso de RLS (cómo lo detectó, por qué pasaba, el fix con un rol de mínimo privilegio y cómo lo verificó con tests). Tu Conjunto → aislamiento multi-tenant + cientos de tests E2E.
 7. **Testing & delivery:** CI/CD, tipo de tests.
 8. **Results:** solo métricas reales.
 9. **What I'd do next / learned**

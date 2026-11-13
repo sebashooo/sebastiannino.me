@@ -43,7 +43,7 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 - [ ] **F4-08 (P1) 🤖 Performance pass:** Lighthouse mobile >= 95 on the Vercel preview. Investigate TBT (framework chunk, render-blocking CSS, `Reveal` and nav client code) and re-measure after F2-07 media lands.
 
 ## Fase 5 · QA y lanzamiento (Día 7)
-- [ ] **F5-01 (P1) 🤖 QA completo** según `12-estrategia-pruebas.md` (incluye la auditoría de privacidad). Also: no "coming soon" placeholders left on the home at launch. Verify the Tu Conjunto diagram claims and its alt text against the real backend (Q-07) before launch. Set `draft: false` on both case studies in `src/data/case-studies.ts` and verify they are indexable (no noindex robots meta, present in the sitemap once F4-03 exists).
+- [ ] **F5-01 (P1) 🤖 QA completo** según `12-estrategia-pruebas.md` (incluye la auditoría de privacidad). Also: no "coming soon" placeholders left on the home at launch. **BLOCKER:** the Tu Conjunto cover must be the corrected architecture illustration (the current one shows the 489 figure, a tenant layer, 3 clients and a residentes module); also rewrite its alt text, and keep the D-44 caption rule ("Architecture overview · illustration"). See D-46 and D-47. Set `draft: false` on both case studies in `src/data/case-studies.ts` and verify they are indexable (no noindex robots meta, present in the sitemap once F4-03 exists).
 - [ ] **F5-02 (P1) 🤖 README del repo** (captura, stack, decisiones, scripts).
 - [ ] **F5-03 (P1) 🧑 Verificación en producción:** HTTPS, redirección de `www`, correo, móvil real.
 - [ ] **F5-04 (P1) 🧑 LinkedIn: básicos + post de lanzamiento** (`06`).
