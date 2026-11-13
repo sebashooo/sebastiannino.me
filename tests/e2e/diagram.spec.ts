@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 
 const CASES = [
-  { slug: "managerapp", title: "Managerapp architecture (draft)" },
-  { slug: "tu-conjunto", title: "Tu Conjunto a la Mano architecture (draft)" },
+  { slug: "managerapp", title: "Managerapp architecture" },
+  { slug: "tu-conjunto", title: "Tu Conjunto a la Mano architecture" },
 ];
 
 for (const { slug, title } of CASES) {

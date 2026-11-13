@@ -34,7 +34,14 @@ export type Project = {
   oneLiner: string; // impact line on the card (real facts only)
   stack: string[];
   featured: boolean; // true → "Selected work"; false → "Other projects"
-  media?: { type: "image" | "video"; src: string; poster?: string; alt: string };
+  media?: {
+    type: "image" | "video";
+    src: string;
+    poster?: string;
+    alt: string;
+    /** Short caption shown under the cover on the case-study page (D-44), e.g. "Screenshot · demo data". */
+    caption?: string;
+  };
   links: {
     caseStudy?: string;
     demo?: string; // only if the public demo uses demo data

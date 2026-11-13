@@ -169,9 +169,6 @@ function Svg({
             strokeDasharray="3 3"
             className="fill-none stroke-text-subtle"
           />
-          <text x={g.x + 10} y={g.y + 14} className="fill-text-muted font-mono text-[11px]">
-            {g.label}
-          </text>
         </g>
       ))}
 
@@ -193,7 +190,7 @@ function Svg({
               // A halo in the page color keeps the label readable where it sits on the line
               style={{ paintOrder: "stroke" }}
               strokeWidth={4}
-              className="fill-text-body stroke-bg font-mono text-[11px]"
+              className="fill-text-body stroke-surface font-mono text-[11px]"
             >
               {e.label}
             </text>
@@ -201,27 +198,38 @@ function Svg({
         </g>
       ))}
 
+      {/* Group labels sit above the edges, with a halo, so an arrow entering the group never cuts them */}
+      {layout.groups.map((g) => (
+        <text
+          key={g.label}
+          x={g.x + 10}
+          y={g.y + 14}
+          style={{ paintOrder: "stroke" }}
+          strokeWidth={4}
+          className="fill-text-muted stroke-surface font-mono text-[11px]"
+        >
+          {g.label}
+        </text>
+      ))}
+
       {layout.nodes.map((n) => (
         <g key={n.id} data-node-kind={n.kind}>
           <NodeShape node={n} />
-          <text
-            x={n.x + n.w / 2}
-            y={n.y + (n.sublabel ? 29 : 35)}
-            textAnchor="middle"
-            className="fill-text font-sans text-[13px] font-semibold"
-          >
-            {n.label}
-          </text>
-          {n.sublabel ? (
+          {n.textLines.map((line, i) => (
             <text
+              key={i}
               x={n.x + n.w / 2}
-              y={n.y + 47}
+              y={line.y}
               textAnchor="middle"
-              className="fill-text-muted font-mono text-[12px]"
+              className={
+                line.kind === "label"
+                  ? "fill-text font-sans text-[13px] font-semibold"
+                  : "fill-text-muted font-mono text-[12px]"
+              }
             >
-              {n.sublabel}
+              {line.text}
             </text>
-          ) : null}
+          ))}
         </g>
       ))}
     </svg>

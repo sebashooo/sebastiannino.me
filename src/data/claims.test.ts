@@ -62,12 +62,48 @@ describe("unverified claims stay out of the content", () => {
       );
     });
 
+    // The one exception (D-49): the "What I'd do next" section may mention RLS as a planned second
+    // layer. It is a future plan, not a claim about how isolation works today.
+    const FUTURE_PLANS = "What I'd do next";
+    function withoutSection(text: string, heading: string): string {
+      const lines = text.split(/\r?\n/);
+      const out: string[] = [];
+      let skipping = false;
+      for (const line of lines) {
+        if (/^## /.test(line)) skipping = line === `## ${heading}`;
+        if (!skipping) out.push(line);
+      }
+      return out.join("\n");
+    }
+
     it("finds no RLS or tenant-layer wording in those files or in the Tu Conjunto data", () => {
       for (const f of tuConjuntoFiles) {
-        expect(readFileSync(f, "utf8"), f).not.toMatch(rls);
+        const text = readFileSync(f, "utf8");
+        // Only the MDX has the future-plans section; the diagram and everything else is scanned whole
+        const scanned = f.endsWith(".mdx") ? withoutSection(text, FUTURE_PLANS) : text;
+        expect(scanned, f).not.toMatch(rls);
       }
       expect(JSON.stringify(getProjectBySlug("tu-conjunto"))).not.toMatch(rls);
       expect(getCaseStudy("tu-conjunto")!.summary).not.toMatch(rls);
+    });
+
+    it("limits the exception to that one section", () => {
+      const doc = [
+        "## Architecture",
+        "Isolation is application-level.",
+        "## What I'd do next",
+        "- Add database-level isolation (Row-Level Security) as a second layer.",
+        "## Results",
+        "Hundreds of tests.",
+      ].join("\n");
+      expect(withoutSection(doc, FUTURE_PLANS)).not.toMatch(rls);
+      // RLS wording anywhere else is still caught, before or after the section
+      expect(withoutSection(`${doc}\nIsolation uses RLS.`, FUTURE_PLANS)).toMatch(rls);
+      expect(withoutSection(`## Architecture\nA tenant layer.\n${doc}`, FUTURE_PLANS)).toMatch(rls);
+      // A different heading is not exempt
+      expect(
+        withoutSection(doc.replace("What I'd do next", "Results (RLS)"), FUTURE_PLANS),
+      ).toMatch(rls);
     });
 
     it("does not touch Managerapp, whose RLS story is real (so the guard is not too broad)", () => {

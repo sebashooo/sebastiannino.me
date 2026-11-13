@@ -2,38 +2,76 @@ import { managerappDiagram } from "./diagrams/managerapp";
 
 ## TL;DR
 
-Draft in progress.
+- **What it is:** Managerapp is an installable, mobile-first web app for small Colombian businesses: point of sale, catalog, multi-branch inventory and PDF quotes. Two real businesses use it, and have for about three months.
+- **My role:** I designed and built it end to end, from a 45-model relational schema to authentication, tenant isolation and CI/CD.
+- **Hardest problem:** PostgreSQL Row-Level Security was silently doing nothing, because the database role the app connected with bypassed it. I caught it with a smoke test against the real database, fixed it with a least-privilege role, and added a CI guard so it cannot come back.
 
 ## Context & problem
 
-Draft in progress.
+Small shops need to sell, track stock across branches, sell on credit and send quotes. The two businesses using Managerapp had been running on another app, Treinta. Managerapp brings those flows into one app that works well on a phone. The cover shows the point of sale: a cashier searches a product (or scans its barcode with the camera), builds a cart and charges in cash, Nequi or card, and a partial payment leaves the rest as customer credit.
+
+Several businesses share one product, so the data model has to guarantee one thing above all else: a business must never see another business's data. In a tool that holds a shop's sales and customers, that kind of leak ends trust immediately.
 
 ## My role & stack
 
-Draft in progress.
+I am the founder and full-stack developer (September 2026 – present). The stack is Next.js 16, TypeScript, React and Tailwind on the front; PostgreSQL on Neon with Prisma; Better Auth for Google sign-in and two-factor authentication; Vercel for hosting; GitHub Actions and Vitest for delivery.
+
+I build with AI assistance (Claude Code) and treat its output like any other contributor's: I review it, and nothing ships without tests.
 
 ## Architecture
 
-Draft in progress.
+The browser (an installable PWA) talks to a Next.js app on Vercel. The app reaches PostgreSQL through Prisma, and every request that touches tenant data runs inside a transaction that first declares who is asking.
 
 <ArchitectureDiagram {...managerappDiagram} />
 
+- **Tenant context:** at the start of each transaction the app sets `app.current_organization_id` (transaction-local).
+- **Row-Level Security:** each tenant table has a `tenant_isolation` policy that compares the row's `organizationId` with that setting. A `WITH CHECK` clause applies the same rule to writes, so a request cannot insert or move rows into another tenant.
+- **Two database roles:** the running app uses a dedicated role with no `BYPASSRLS`, with CRUD permissions only. Migrations use a separate owner connection, so the app never owns the tables.
+- **Data model:** 45 Prisma models, exact decimals for money, and an auditable inventory log. Access control by role and by branch.
+- **CI:** every push runs the tests against an ephemeral Neon branch, and a check fails the build if the connecting role can bypass RLS.
+
 ## Key decisions & trade-offs
 
-Draft in progress.
+### 1. Isolation in the database, from the first migration
+
+I put RLS in the first migration instead of relying only on `WHERE organizationId = ...` in app code. The alternative, filtering only in the application, is simpler, but one forgotten filter leaks a whole tenant; and retrofitting isolation onto finished queries is more expensive and riskier. The trade-off: every query now needs tenant context, so there is more plumbing and more tests.
+
+### 2. Tenant context set per transaction
+
+The tenant is declared with a transaction-local setting, so it disappears when the transaction ends and cannot leak to the next request that reuses a pooled connection. The alternative, a session-level setting, would persist on the connection. The trade-off is that all tenant queries must run inside a transaction.
+
+### 3. Two roles, two connections
+
+The app runs with a least-privilege role; migrations run with the owner. In PostgreSQL, a table's owner bypasses RLS unless it is forced, so letting the app connect as the owner would defeat the policies. The cost is two connection strings to manage and keep apart.
 
 ## Hardest problem
 
-Draft in progress.
+**A silent bypass.** In September 2026 I ran my RLS smoke test against the real Neon database for the first time. In step 2, with no tenant set, the query should have returned zero rows. It returned all of them.
+
+My first suspicion was the policies, so I checked them with a read-only SQL diagnostic over `pg_policies` and `pg_roles`. They were correct. The problem was the role: a role created from the provider's console becomes a member of its superuser-like group, which includes `BYPASSRLS`. PostgreSQL then skips every policy without an error or a warning. The attribute could not be removed, not even by the database owner.
+
+The fix was to create a new role with plain SQL: `NOSUPERUSER`, `NOBYPASSRLS`, `SELECT/INSERT/UPDATE/DELETE` only, and no access to Prisma's migrations table. The app's `DATABASE_URL` now points to it, while migrations keep using the owner connection. The smoke test passed 6 out of 6.
+
+To make sure it never returns, CI runs a guard on an ephemeral Neon branch that fails if the connecting role has `rolbypassrls`. I also wrote the rule into the decision log: application roles on this provider are always created with SQL, never from the console.
+
+What I took from it: a security control is not real until you test that it fails closed, and you have to test it in the real environment, not only in code.
 
 ## Testing & delivery
 
-Draft in progress.
+- **Test suite:** about 843 test cases across 141 test files (Vitest), a mix of unit and integration tests.
+- **Isolation tests:** 41 cross-organization cases in 13 files, plus dedicated tests for the RLS audit of child tables, including chains of one to three joins.
+- **CI/CD:** every push runs lint and tests in GitHub Actions against an ephemeral Neon branch; every push to the main branch deploys automatically to Vercel.
+- **Documentation:** the repository keeps a decision log, a threat model and security audit notes.
 
 ## Results
 
-Draft in progress.
+- In daily use by two real businesses for about three months.
+- Roughly two years of historical records loaded, and around 500 new records a week.
+- A tenant-isolation design that was tested against the real database, with a CI guard that prevents the bypass from coming back.
+- About 843 automated test cases.
 
 ## What I'd do next
 
-Draft in progress.
+- Add `FORCE ROW LEVEL SECURITY` on tenant tables as one more layer.
+- Automate a scheduled, read-only audit of production roles.
+- Keep a written decision for every security-relevant change; it is what made this incident traceable weeks later.

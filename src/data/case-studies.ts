@@ -1,6 +1,6 @@
 import type { CaseStudy } from "./types";
 
-// Placeholder entries until the real drafts arrive in F3-05. Both stay drafts (noindex) until then.
+// The pages render the real texts (F3-05). Both stay drafts (robots noindex) until F5-01 flips them.
 // Summaries restate facts already shown on the home cards (src/data/projects.ts); nothing new is claimed.
 export const caseStudies: CaseStudy[] = [
   {

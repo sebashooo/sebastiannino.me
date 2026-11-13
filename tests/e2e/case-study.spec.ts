@@ -112,6 +112,60 @@ test("home card link opens the case study", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1, name: "Managerapp" })).toBeVisible();
 });
 
+test.describe("real content (F3-05)", () => {
+  const PAGES = [
+    {
+      slug: "managerapp",
+      caption: "Screenshot · demo data",
+      sentence: "PostgreSQL Row-Level Security was silently doing nothing",
+    },
+    {
+      slug: "tu-conjunto",
+      caption: "Architecture overview · illustration",
+      sentence: "many complexes share one database and the data is personal",
+    },
+  ];
+
+  for (const { slug, caption, sentence } of PAGES) {
+    test(`/work/${slug}: one H1, the draft text, the D-44 caption and nine H2 sections`, async ({
+      page,
+    }) => {
+      await page.goto(`/work/${slug}`);
+      await expect(page.locator("h1")).toHaveCount(1);
+      await expect(page.getByText(sentence)).toBeVisible();
+      await expect(page.locator("header figcaption")).toHaveText(caption);
+      await expect(page.locator("article h2")).toHaveCount(9);
+      await expect(page.getByText("Draft in progress.")).toHaveCount(0);
+    });
+
+    for (const width of [375, 1440]) {
+      test(`/work/${slug}: the long page has no horizontal scroll at ${width}px`, async ({
+        page,
+      }) => {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto(`/work/${slug}`);
+        const overflow = await page.evaluate(
+          () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        );
+        expect(overflow).toBeLessThanOrEqual(0);
+      });
+    }
+  }
+
+  test("the long inline code and lists do not widen the page on a phone", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto("/work/managerapp");
+    const widest = await page.evaluate(() =>
+      Math.max(
+        ...[...document.querySelectorAll("article *")].map(
+          (el) => el.getBoundingClientRect().right,
+        ),
+      ),
+    );
+    expect(widest).toBeLessThanOrEqual(375);
+  });
+});
+
 test("an unknown slug returns 404", async ({ page }) => {
   const response = await page.goto("/work/does-not-exist");
   expect(response?.status()).toBe(404);

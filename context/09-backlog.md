@@ -28,9 +28,9 @@ Prioridad: **P1** = necesario para lanzar el día 7 · **P2** = deseable antes d
 ## Fase 3 · Casos de estudio (Días 4–5)
 - [x] **F3-01 (P1) 🤖 Infraestructura MDX** + layout del caso (TOC, metadata, anterior/siguiente) + `generateStaticParams`. *Done 2026-11-12 (D-39 to D-43). Placeholder MDX for both slugs, both `draft: true`.*
 - [x] **F3-02 (P1) 🤖 ArchitectureDiagram** (SVG/JSX con los tokens). *Done 2026-11-13 (D-45). Draft diagrams on both case studies; the Tu Conjunto one is generic until Q-07.*
-- [ ] **F3-03 (P1) 💬→🧑 Borrador del caso Managerapp** (Claude Chat redacta y Sebastián corrige los datos).
-- [ ] **F3-04 (P1) 💬→🧑 Borrador del caso Tu Conjunto.**
-- [ ] **F3-05 (P1) 🤖 Implementar los dos MDX** con diagramas y galerías. *Captions required (D-44): "Screenshot · demo data" (managerapp) and "Architecture overview · illustration" (tu-conjunto).*
+- [x] **F3-03 (P1) 💬→🧑 Borrador del caso Managerapp** (Claude Chat redacta y Sebastián corrige los datos). *Done 2026-11-13: final draft in `portfolio-media/drafts/caso-managerapp.md`.*
+- [x] **F3-04 (P1) 💬→🧑 Borrador del caso Tu Conjunto.** *Done 2026-11-13: final draft in `portfolio-media/drafts/caso-tu-conjunto.md`.*
+- [x] **F3-05 (P1) 🤖 Implementar los dos MDX** con diagramas y galerías. *Done 2026-11-13 (D-49, D-50): both pages render the final texts with their diagrams, covers and D-44 captions, still `draft: true`. No galleries or clips: none exist (F2-07 stays partial). Phase 3 closed.*
 
 ## Fase 4 · Interactividad, SEO, calidad (Día 6)
 - [ ] **F4-01 (P1) 🤖 Parser de comandos** puro en `lib/terminal` con tests en Vitest (todos los comandos + desconocido + vacío).

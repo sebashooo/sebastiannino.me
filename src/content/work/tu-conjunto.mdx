@@ -2,38 +2,73 @@ import { tuConjuntoDiagram } from "./diagrams/tu-conjunto";
 
 ## TL;DR
 
-Draft in progress.
+- **What it is:** Tu Conjunto a la Mano is a modular platform for residential complexes. It replaces the paper logbook at the gate and gives administrators a live dashboard. It is a team project, in development, and we are looking for pilot complexes.
+- **My role:** I designed and built the backend and the PostgreSQL data model. A teammate owns the React frontend.
+- **Hardest problem:** many complexes share one database and the data is personal, so isolation had to be provable. I wrote an end-to-end test that replays every route of the API with another complex's session and checks that nothing from the first complex is visible or changed.
 
 ## Context & problem
 
-Draft in progress.
+In many Colombian residential complexes, the gate staff record visitors and packages in a paper book, and administrators have no real-time view of what is happening. The platform covers visitor approval from the resident's phone, packages, reservations, payments with receipts, documents, QR-based security and notifications, and an AI assistant for announcements and rule questions.
+
+The hard constraint is multi-tenancy: all complexes live in one database, and the data is about residents, so each complex must see only its own. In Colombia this also falls under the data-protection law (Ley 1581), which shaped how I handled sessions and personal data.
 
 ## My role & stack
 
-Draft in progress.
+Backend and database developer in a team of two. NestJS and TypeScript for the API, PostgreSQL on Neon with Prisma and versioned migrations, Jest and Supertest for tests, Swagger for the API documentation. The frontend (React 19 and Vite) is built by my teammate. The API is deployed on Render, the database on Neon and the frontend on Vercel. I also use Claude Code and review everything it writes.
 
 ## Architecture
 
-Draft in progress.
+Requests go from the React clients to the NestJS API. Before any business logic runs, three global guards decide who the user is and what they may do. The business logic is split into 28 feature modules, and every module reaches the database through Prisma.
 
 <ArchitectureDiagram {...tuConjuntoDiagram} />
 
+- **Five roles:** superadmin, admin, front desk, resident and accountant. The accountant has a separate session and guard.
+- **Modules sold as packages:** a module guard checks that the complex has the feature enabled in its plan.
+- **Tenant scoping:** the complex of the logged-in user is read from the database by the authentication guard, and every query filters by it. It never comes from data sent by the client.
+- **Sessions:** secure cookies, lockout after failed logins and hashed passwords.
+- **AI:** Gemini is used for announcements, complaint classification and rule questions, with usage limits and anonymized data.
+
 ## Key decisions & trade-offs
 
-Draft in progress.
+### 1. Tenant identity comes from the session, never from the request
+
+A complex id sent by the client can be forged, so the API ignores it and takes the complex from the authenticated user, read from the database. The trade-off is that identity depends on a server-side lookup.
+
+### 2. Isolation enforced in each service, backed by tests
+
+Each service filters by complex in its own queries. The trade-off is that correctness depends on every single query, which is why the testing strategy below carries so much weight.
+
+### 3. Every route declares a role, or is a reviewed exception
+
+Routes declare the roles that may call them. A test fails the build if a new route has neither a role nor an entry in an explicit list of exceptions. Public routes and the few that only need a session live on that list.
 
 ## Hardest problem
 
-Draft in progress.
+**Proving isolation across the whole API.** With more than 300 routes, a missing filter in one endpoint is easy to introduce and impossible to catch by reading code. I wanted the guarantee to hold as the API grows, without relying on anyone's memory.
+
+The solution has three parts:
+
+- **A sweep test:** it logs in as the administrator of one complex, then calls every registered route using real ids from another complex. It compares a fingerprint of the other complex's rows before and after, so it catches both leaked reads and silent writes.
+- **A targeted suite:** 27 tests cover reads on 12 routes, writes by id on 7 routes (expected 404), creations that reference another complex's units on 6 routes (expected 400 without revealing anything), and a case where the other complex's records must stay untouched.
+- **A rule test:** a new route without a role or a declared exception fails the build.
+
+The result is that a new endpoint cannot ship without isolation being considered. What I took from it: when a guarantee depends on discipline, turn it into a test.
 
 ## Testing & delivery
 
-Draft in progress.
+- **End-to-end tests:** hundreds of them, with Jest and Supertest against a real test database; migrations run before the suite.
+- **Isolation coverage:** 84 test or describe names about isolation across modules.
+- **API documentation:** Swagger.
+- **Deployment:** API on Render, database on Neon, frontend on Vercel.
 
 ## Results
 
-Draft in progress.
+- Five roles and 28 feature modules working behind one API.
+- A suite of hundreds of end-to-end tests, including a sweep test over every route.
+- Status: in development, looking for pilot residential complexes.
 
 ## What I'd do next
 
-Draft in progress.
+- Run a pilot with a real complex and measure how long it takes the gate to register a visitor compared with the paper book.
+- Add database-level isolation (Row-Level Security) as a second layer, applying what I learned building Managerapp.
+- Keep the sweep test as the safety net for every new route.

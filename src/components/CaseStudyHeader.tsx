@@ -55,9 +55,16 @@ export function CaseStudyHeader({
           <p className="m-0 font-mono text-xs text-text-muted">{project.privateNote}</p>
         ) : null}
 
-        <div className="overflow-hidden rounded-card border border-border">
-          <ProjectMedia media={project.media} />
-        </div>
+        <figure className="m-0 flex flex-col gap-2">
+          <div className="overflow-hidden rounded-card border border-border">
+            <ProjectMedia media={project.media} />
+          </div>
+          {project.media?.caption ? (
+            <figcaption className="font-mono text-xs text-text-muted">
+              {project.media.caption}
+            </figcaption>
+          ) : null}
+        </figure>
       </Container>
     </header>
   );

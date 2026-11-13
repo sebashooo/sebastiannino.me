@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { managerappDiagram } from "@/content/work/diagrams/managerapp";
 import { tuConjuntoDiagram } from "@/content/work/diagrams/tu-conjunto";
-import { describeEdges, layoutDiagram, validateDiagram, type DiagramDefinition } from ".";
+import { describeEdges, layoutDiagram, validateDiagram, wrapText, type DiagramDefinition } from ".";
 
 const sample: DiagramDefinition = {
   nodes: [
@@ -213,13 +213,71 @@ describe("describeEdges (text version)", () => {
 });
 
 describe("real diagrams", () => {
-  it("use unique ids and only technologies from context/01", () => {
+  it("use unique ids and contain no emails or URLs", () => {
     const text = JSON.stringify([managerappDiagram, tuConjuntoDiagram]);
     expect(managerappDiagram.id).not.toBe(tuConjuntoDiagram.id);
-    // The unverified claims of the Tu Conjunto cover (Q-07) must not leak into the draft diagram
-    expect(JSON.stringify(tuConjuntoDiagram)).not.toMatch(
-      /Vite|conjunto_id|:tenant|cross-tenant|role guards|porteria/i,
-    );
     expect(text).not.toMatch(/@|https?:\/\//);
+  });
+
+  it("keep the wrong claims of the outdated Tu Conjunto cover out of its diagram", () => {
+    // 3 clients, a tenant layer, a residentes module and the old tenant-scope wording (D-46)
+    expect(JSON.stringify(tuConjuntoDiagram)).not.toMatch(
+      /:tenant|conjunto_id|residentes|porteria|tenant layer|role guards|\bRLS\b/i,
+    );
+  });
+});
+
+describe("text wrapping", () => {
+  it("wraps greedily on spaces and keeps every line within the limit", () => {
+    expect(wrapText("Prisma + tenant context", 17)).toEqual(["Prisma + tenant", "context"]);
+    expect(wrapText("Browser / installed PWA", 17)).toEqual(["Browser /", "installed PWA"]);
+    expect(wrapText("PostgreSQL", 17)).toEqual(["PostgreSQL"]);
+  });
+
+  it("never leaves a dangling · at the end of a line", () => {
+    expect(wrapText("JWT · roles · module", 18)).toEqual(["JWT · roles", "· module"]);
+    expect(wrapText("Neon · RLS tenant_isolation", 18)).toEqual(["Neon · RLS", "tenant_isolation"]);
+    for (const text of ["Vercel · frontend by teammate", "Neon · rows carry conjuntoId"]) {
+      for (const line of wrapText(text, 18)) expect(line.endsWith("·")).toBe(false);
+    }
+  });
+
+  it("throws for a single word longer than the line", () => {
+    expect(() => wrapText("Supercalifragilisticexpialidocious", 17)).toThrow(/longer than 17/);
+  });
+
+  it("rejects text that needs more than two lines, with a clear error", () => {
+    const def: DiagramDefinition = {
+      nodes: [{ id: "a", label: "one two three four five six seven", kind: "app", col: 0, row: 0 }],
+      edges: [],
+    };
+    expect(() => validateDiagram(def)).toThrow(/needs 3 lines/);
+  });
+
+  it("uses one box height for the grid and keeps all text inside each box", () => {
+    for (const def of [managerappDiagram, tuConjuntoDiagram]) {
+      for (const o of ["horizontal", "vertical"] as const) {
+        const { nodes } = layoutDiagram(def, o);
+        expect(new Set(nodes.map((n) => n.h)).size).toBe(1);
+        for (const n of nodes) {
+          expect(n.textLines.length).toBeGreaterThan(0);
+          for (const line of n.textLines) {
+            expect(line.y).toBeGreaterThan(n.y);
+            expect(line.y).toBeLessThan(n.y + n.h);
+          }
+        }
+      }
+    }
+  });
+
+  it("wraps the spec's long labels onto two lines in the real diagrams", () => {
+    const { nodes } = layoutDiagram(managerappDiagram, "horizontal");
+    const tenant = nodes.find((n) => n.id === "tenant")!;
+    expect(tenant.textLines.map((l) => l.text)).toEqual([
+      "Prisma + tenant",
+      "context",
+      "set per",
+      "transaction",
+    ]);
   });
 });

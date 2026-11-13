@@ -8,8 +8,11 @@ import type { DiagramDefinition, DiagramNode, NodeKind, Orientation } from "./ty
  * the phone's content width keeps the text near 1:1 at 375px.
  */
 
+/** Max characters per line (the box fits 17 bold 13px or 18 mono 12px characters). */
 export const MAX_LABEL = 17;
 export const MAX_SUBLABEL = 18;
+/** Labels and sublabels wrap onto at most this many lines each. */
+export const MAX_LINES = 2;
 export const MAX_EDGE_LABEL = 9;
 
 const PAD = 8;
@@ -17,13 +20,51 @@ const TOP = 28; // room for a group label above the first row
 const GROUP_PAD = 8;
 const EDGE_LABEL_CHAR_WIDTH = 6.6; // 11px mono
 
+const LABEL_LINE = 17; // line heights inside a node
+const SUBLABEL_LINE = 15;
+const NODE_VPAD = 24; // total top and bottom padding inside a node
+const MIN_NODE_H = 60;
+
 const METRICS = {
   // flow = main axis of the arrows, cross = the other one
-  horizontal: { w: 144, h: 60, flowGap: 64, crossGap: 56 },
-  vertical: { w: 146, h: 60, flowGap: 44, crossGap: 44 },
+  horizontal: { w: 144, flowGap: 64, crossGap: 56 },
+  vertical: { w: 146, flowGap: 44, crossGap: 44 },
 } as const;
 
-export type LaidOutNode = DiagramNode & { x: number; y: number; w: number; h: number };
+const NBSP = " ";
+
+/**
+ * Greedy word wrap for node text. A "·" separator stays glued to the word after it, so a line never
+ * ends with a dangling dot. Throws if a single word is longer than `max`.
+ */
+export function wrapText(text: string, max: number): string[] {
+  const words = text.replaceAll(" · ", ` ·${NBSP}`).split(" ").filter(Boolean);
+  const lines: string[] = [];
+  let line = "";
+  for (const word of words) {
+    if (word.length > max) throw new Error(`"${word}" is longer than ${max} characters`);
+    const next = line ? `${line} ${word}` : word;
+    if (next.length <= max) {
+      line = next;
+    } else {
+      lines.push(line);
+      line = word;
+    }
+  }
+  if (line) lines.push(line);
+  return lines.map((l) => l.replaceAll(NBSP, " "));
+}
+
+type TextLine = { text: string; kind: "label" | "sublabel"; y: number };
+
+export type LaidOutNode = DiagramNode & {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  /** Wrapped text, each line with its baseline y (absolute), vertically centered in the box. */
+  textLines: TextLine[];
+};
 
 export type LaidOutEdge = {
   from: string;
@@ -63,13 +104,23 @@ export function validateDiagram(def: DiagramDefinition): void {
     if (!Number.isInteger(n.col) || !Number.isInteger(n.row) || n.col < 0 || n.row < 0) {
       throw new Error(`Node "${n.id}" needs non-negative integer col/row (got ${n.col},${n.row})`);
     }
-    if (n.label.length === 0 || n.label.length > MAX_LABEL) {
-      throw new Error(`Node "${n.id}" label must be 1-${MAX_LABEL} characters ("${n.label}")`);
-    }
-    if (n.sublabel !== undefined && n.sublabel.length > MAX_SUBLABEL) {
-      throw new Error(
-        `Node "${n.id}" sublabel is over ${MAX_SUBLABEL} characters ("${n.sublabel}")`,
-      );
+    if (n.label.trim().length === 0) throw new Error(`Node "${n.id}" has an empty label`);
+    for (const [what, text, max] of [
+      ["label", n.label, MAX_LABEL],
+      ["sublabel", n.sublabel, MAX_SUBLABEL],
+    ] as const) {
+      if (text === undefined) continue;
+      let lines: string[];
+      try {
+        lines = wrapText(text, max);
+      } catch (e) {
+        throw new Error(`Node "${n.id}" ${what}: ${(e as Error).message} ("${text}")`);
+      }
+      if (lines.length > MAX_LINES) {
+        throw new Error(
+          `Node "${n.id}" ${what} needs ${lines.length} lines (max ${MAX_LINES} of ${max} characters): "${text}"`,
+        );
+      }
     }
     const cell = `${n.col},${n.row}`;
     const other = cells.get(cell);
@@ -123,8 +174,27 @@ function segmentHitsRect(p: [number, number], q: [number, number], r: Rect): boo
 
 export function layoutDiagram(def: DiagramDefinition, orientation: Orientation): Layout {
   validateDiagram(def);
-  const m = METRICS[orientation];
   const horizontal = orientation === "horizontal";
+
+  // One box height for the whole grid: tall enough for the node with the most text lines.
+  const wrapped = new Map(
+    def.nodes.map((n) => [
+      n.id,
+      {
+        label: wrapText(n.label, MAX_LABEL),
+        sublabel: n.sublabel ? wrapText(n.sublabel, MAX_SUBLABEL) : [],
+      },
+    ]),
+  );
+  const textHeight = (id: string) => {
+    const t = wrapped.get(id)!;
+    return t.label.length * LABEL_LINE + t.sublabel.length * SUBLABEL_LINE;
+  };
+  const nodeH = Math.max(
+    MIN_NODE_H,
+    NODE_VPAD + Math.max(...def.nodes.map((n) => textHeight(n.id))),
+  );
+  const m = { ...METRICS[orientation], h: nodeH };
 
   // Abstract frame: f = along the flow, c = across it. Horizontal: f is x. Vertical: f is y.
   const flowSize = horizontal ? m.w : m.h;
@@ -147,7 +217,19 @@ export function layoutDiagram(def: DiagramDefinition, orientation: Orientation):
 
   const nodes: LaidOutNode[] = frames.map(({ n, f0, c0 }) => {
     const [x, y] = xy(f0, c0);
-    return { ...n, x, y, w: m.w, h: m.h };
+    const t = wrapped.get(n.id)!;
+    // Center the text block vertically; baselines sit ~75% down each line box
+    let cursor = y + (m.h - textHeight(n.id)) / 2;
+    const textLines: TextLine[] = [];
+    for (const text of t.label) {
+      textLines.push({ text, kind: "label", y: cursor + LABEL_LINE * 0.75 });
+      cursor += LABEL_LINE;
+    }
+    for (const text of t.sublabel) {
+      textLines.push({ text, kind: "sublabel", y: cursor + SUBLABEL_LINE * 0.75 });
+      cursor += SUBLABEL_LINE;
+    }
+    return { ...n, x, y, w: m.w, h: m.h, textLines };
   });
 
   const maxP = Math.max(...frames.map((f) => f.p));
