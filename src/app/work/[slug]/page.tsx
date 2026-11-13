@@ -8,6 +8,7 @@ import { Container } from "@/components/Container";
 import { Toc } from "@/components/Toc";
 import { caseStudyModules, CASE_STUDY_DIR } from "@/content/work";
 import { getAdjacentCaseStudies, getCaseStudies, getCaseStudy, getProjectBySlug } from "@/data";
+import { SITE } from "@/lib/site";
 import { extractToc } from "@/lib/toc";
 
 // Explicit type (not the generated PageProps helper): `npm run typecheck` must work on a clean
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = getProjectBySlug(slug);
   if (!caseStudy || !project) return {};
   const url = `/work/${slug}`;
+  // The root layout's template appends " · Sebastián Niño" to this title
   const title = `${project.name} — Case study`;
   return {
     title,
@@ -33,6 +35,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: { canonical: url },
     openGraph: {
       type: "article",
+      siteName: SITE.name,
+      locale: "en_US",
       url,
       title,
       description: caseStudy.summary,

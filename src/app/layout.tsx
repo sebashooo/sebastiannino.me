@@ -26,8 +26,21 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: SITE.title,
+  // Resolves every relative URL below (canonical, Open Graph images) to the canonical origin
+  metadataBase: new URL(SITE.url),
+  // Pages set a short title; the template appends the name. The home uses the full default.
+  title: { default: SITE.title, template: `%s · ${SITE.name}` },
   description: SITE.description,
+  authors: [{ name: SITE.name, url: SITE.url }],
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    locale: "en_US",
+    title: SITE.title,
+    description: SITE.description,
+    url: "/",
+  },
+  twitter: { card: "summary_large_image", title: SITE.title, description: SITE.description },
 };
 
 /** Shared shell: skip link → header (Nav) → main → footer. Every page renders inside <main>. */

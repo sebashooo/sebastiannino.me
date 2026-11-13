@@ -4,6 +4,11 @@ export const SITE = {
   title: "Sebastián Niño — Backend-minded Full-Stack Developer",
   description:
     "Junior full-stack developer from Colombia focused on backend, data and cloud. Next.js, NestJS, PostgreSQL, AWS. Open to remote roles.",
+  /**
+   * Canonical origin for metadata, the sitemap and JSON-LD. The domain is connected in Phase 5
+   * (F0-04); until then these URLs point at the intended address.
+   */
+  url: "https://sebastiannino.me",
   launchDate: "2026-11-19",
   /** The only public email address. Every mailto link and visible address must come from here. */
   email: "hello@sebastiannino.me",
